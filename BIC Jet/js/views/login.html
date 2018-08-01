@@ -1,0 +1,29 @@
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<h1>Welcome!</h1>
+<h2>Please login to continue...</h2>
+
+
+<div id="loginForm" style="width: 700px">
+
+    <oj-label for="username">Username : </oj-label>
+    <oj-input-text id="username" value="{{userName}}"  clear-icon="conditional" placeholder="Username" autocomplete="off" required></oj-input-text> 
+    <br/><br/>
+    <oj-label for="password">Password :</oj-label>
+    <oj-input-password id="password" value="{{password}}" placeholder="Password" required></oj-input-password>
+    <br/><br/>
+    <div style="width: 25%;max-width: 250px">
+        <oj-button id='reset' on-oj-action='[[reset]]' style="background: none;border: none;float: left;">Reset</oj-button>
+        <oj-button id='submit' on-oj-action='[[submit]]' style="background-color: green;border-color: green;float: right;">Submit</oj-button>
+    </div> <br/><br/><br/><br/>
+    <div>
+        <span>New User?</span>&nbsp;&nbsp;<a href="#" data-bind="click: signup">Sign-up here!</a>
+    </div>
+    <br/><br/>
+    <div data-bind="text: $data.errorMessage;" style="color: red; font-family: sans-serif; font-size: large;"></div>
+
+</div>

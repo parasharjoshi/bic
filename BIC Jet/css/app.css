@@ -1,0 +1,72 @@
+/*
+    Document   : override
+    Created on : <date>
+    Author     : <author>
+    Description:
+        This is where any of your application specific styles should be included
+*/
+
+
+.tableHeader{
+    text-decoration: underline;
+    background-color: #F2F4F4;
+    padding: 5px 5px 5px 5px;
+    font-weight: bold;
+}
+
+.sectionHeader{
+    font-weight: bold;
+    margin: 20px 0px 10px 20px;   
+}
+
+.activity-thumbnail {
+    border-radius: 5px;
+    background-size: 50px 50px;
+    background-repeat: no-repeat;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    vertical-align: middle;
+}
+
+.activity-action {
+    font-size: 13px;
+    color: #696969;
+}
+
+.activity-tweet {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.activity-metadata {
+    font-size: 13px;
+    color: #696969;
+    float: right;
+}
+
+.activity-content {
+    margin-left: 10px;
+}
+.activity-label {
+    font-size: 13px;
+    color: #7B7D7D;
+}
+
+.activity-recog-image {
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    margin-left: 10px;
+}
+
+.activity-row{
+    min-width: 500px;
+    max-width: 700px;
+    padding: .85714rem;
+    background-image: linear-gradient(#e0e1e1, #e0e1e1);
+    background-size: 100% 1px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    border-top: 1px solid transparent;
+}

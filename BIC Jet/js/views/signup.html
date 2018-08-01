@@ -1,0 +1,45 @@
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+
+<div id="signupForm" data-bind="visible: $data.enableSignupForm">
+    <h1>Hey, we are glad you are interested to join us..!</h1>
+    <h2 style="margin-top: 10px">Please provide following details so that we can set you up...</h2>
+    <br/><br/>
+    <div id="form-container" style="width: 600px;" >
+
+        <oj-form-layout label-edge="{{labelEdge}}" max-columns="1">
+            <b style="margin-left: 50px; margin-bottom: 0px;">1. Your Details</b>
+            <hr style="width: 500px;"/>
+            <oj-input-text id="firstname" required value="{{firstName}}" clear-icon="conditional" placeholder="Your first name. E.g: Parashar" label-hint="First Name :" ></oj-input-text>
+            <oj-input-text id="lastname" required value="{{lastName}}" clear-icon="conditional" placeholder="Your last name. E.g: Joshi" label-hint="Last Name :"></oj-input-text>
+            <oj-input-text id="email" required value="{{emailId}}" clear-icon="conditional" placeholder="Your email id. E.g: abc@bic.com" label-hint="Email Address :"></oj-input-text>
+            <br/>
+            <b style="margin-left: 50px; margin-bottom: 0px;">2. Choose Login credentials</b>
+            <hr style="width: 500px;"/>
+            <oj-input-text id="username" required value="{{userName}}" clear-icon="conditional" placeholder="User name" label-hint="User Name for BIC : "></oj-input-text> 
+            <oj-button id='checkUsername' on-oj-action='[[checkUserName]]' style="background: none;border: none;margin-left: 200px;margin-bottom: 10px;" disabled="{{enableCheck}}" >Check Username availability</oj-button>
+            <oj-input-password id="password" value="{{password}}" placeholder="Password" label-hint="Password for BIC : " required></oj-input-password>
+            <oj-input-password id="repassword" value="{{repassword}}" placeholder="Confirm password" label-hint="Re-confirm Password : " required></oj-input-password>
+            <br/>
+            <div style="align-content: center;">
+                <oj-button id='reset' on-oj-action='[[reset]]' style="background: none;border: none;margin-left: 200px;">Reset</oj-button>
+                <oj-button id='submit' on-oj-action='[[submit]]' style="background-color: green;border-color: green;margin-left: 100px;">Submit</oj-button>
+            </div> 
+            <div data-bind="text: $data.errorMessage;" style="color: red; font-family: sans-serif; font-size: large;"></div>
+        </oj-form-layout>
+    </div>
+</div>
+
+<div id="signupForm" data-bind="visible: $data.signupSuccess">
+    <h1>Welcome to the community..!</h1>
+    <h2 style="margin-top: 10px">We have set you up. Please use the credentials to login...</h2>
+    <br/><br/>
+</div>
+<br/>
+<a href="#" data-bind="click: goToLogin">Go to Login page.</a>
+<br/><br/>

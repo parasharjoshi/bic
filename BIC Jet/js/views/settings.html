@@ -1,0 +1,94 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+-->
+<div id='non-admin-error' data-bind="visible: !$data.isAdmin() || !$data.isModuleEnabled() && !$data.initializing()" style="margin-top: 40px; font-style: italic; color: red;">
+    <span class='oj-fwk-icon oj-fwk-icon-status-error'></span><span data-bind='text:$data.errorMessage()' style='margin-left: 10px; width: 100%;'/>
+</div>
+
+<div id='loading' data-bind="visible: $data.initializing()">
+    <span>Please wait while we get you the information ... </span>
+    <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
+</div>
+
+<div data-bind="visible: $data.isAdmin() && $data.isModuleEnabled() && !$data.initializing()">
+    <div style="width:100%;max-width:700px;display:inline-block;">
+        <oj-tab-bar id="tabs" edge="top" selection="{{selectedTab}}" >
+            <ul>
+                <li id="current-model"><a href="#"> Model Details</a></li>
+                <li id="auto-init-model"><a href="#"> Inception Model</a></li>
+                <!--<li id="upload-model"><a href="#"> Upload Model</a></li>-->
+
+            </ul>
+        </oj-tab-bar>
+        <oj-switcher value="[[selectedTab]]">
+            <div slot="current-model">
+                <div class="demo-tab-content oj-flex-items-pad" >
+                    <h3>Current Model</h3>
+                    <div class="oj-flex">
+                        <div data-bind="visible:!$data.model()"> There is no model set yet. Please use <strong>'Auto Init'</strong> to set-up a new model.</div>
+                        <div class="oj-flex" data-bind="visible:$data.model()">
+                            <oj-table id='table'
+                                      data='[[modelInfoTableDataProvider]]'
+                                      dnd='{"reorder": {"columns": "disabled"}}'
+                                      scroll-policy='loadMoreOnScroll'
+                                      scroll-policy-options='{"fetchSize": 10}'
+                                      columns='[{"headerText": "Attribute", 
+                                      "field": "modelAttr",
+                                      "headerClassName": "tableHeader",
+                                      "className": "oj-sm-only-hide",
+                                      "sortable":"disabled",
+                                      "resizable": "disabled"},
+                                      {"headerText": "Value", 
+                                      "field": "modelValue",
+                                      "headerClassName": "tableHeader",
+                                      "sortable":"disabled",
+                                      "resizable": "disabled"}]'
+                                      style='width: 100%;'>
+                            </oj-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div slot="auto-init-model">
+                <div class="demo-tab-content oj-flex-items-pad" aria-controls="pieChart">
+                    <h3>Auto download and Initialize the model.</h3>
+                    <div class="oj-flex">
+                        <p>This operation will result in following steps</p>
+                        <ol>
+                            <li>The system will download a pre-configured 'Inception' model zip.</li>
+                            <li>The zip will be extracted.</li>
+                            <li>The extracted files will be validated and formatted to be pushed to the database.</li>
+                            <li>The model is enabled for recognition tasks.</li>
+                        </ol>
+                        <div id='choice'>
+                            <p><br/><br/><strong>Use the following button to auto initialize the model.</strong></p>
+                            <oj-button id='auto-init-button' on-oj-action='[[autoInitModel]]' style="background: none;border: none;margin-left: 100px;">Auto Init Model</oj-button>
+
+                            <br/><br/>
+                            <div id='auto-init-progress' data-bind="visible: $data.inprogress()=='YES'">
+                                <span>Please wait while we set the model up...!! </span>
+                                <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
+                            </div>
+                            <div id='auto-init-complete' data-bind="visible: $data.inprogress()=='DONE' ">
+                                <span class='oj-fwk-icon oj-fwk-icon-status-confirmation'></span>
+                                <span style='margin-left: 10px; width: 100%;'>Model initialized and ready to use..!</span>
+                            </div>
+                            <div id='auto-init-failed' data-bind="visible: $data.inprogress()=='FAIL'">
+                                <span class='oj-fwk-icon oj-fwk-icon-status-error'></span><span data-bind='text:$data.errorMessage()' style='margin-left: 10px; width: 100%;'></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div slot="upload-model">
+                <div class="demo-tab-content oj-flex-items-pad">
+                    <h3>Series Attributes - Series 1</h3>
+                    <div class="oj-flex">
+
+                    </div>
+                </div>
+            </div>
+        </oj-switcher>
+    </div>
+</div>

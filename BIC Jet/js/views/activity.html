@@ -1,0 +1,76 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+-->
+<div class="oj-hybrid-padding">
+    <h1>BIC User Activity</h1>
+    <!--    <div>
+            This page list all the user activity for BIC.<br/><br/>
+            <span style="color: grey">&lt;Note : This is page is being worked on yet.&gt;</span>
+        </div>-->
+
+    <div id='loading' data-bind="visible: $data.inLoadingState()">
+        <span>Please wait while we initialize the module ... </span>
+        <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
+    </div>
+    <div id='error' data-bind="visible: !$data.activityAvailable() && !$data.inLoadingState()" style="margin-top: 40px; font-style: italic; color: red;">
+        <span class='oj-fwk-icon oj-fwk-icon-status-error'></span><span data-bind="text:$data.errorMessage()" style='margin-left: 10px; width: 100%;'/>
+    </div>
+    <div id='recog-step-container' data-bind="visible: $data.activityAvailable() && !$data.inLoadingState() && !$data.noActivity()">
+        <div data-bind="template: { name: 'activity_template', foreach: $data.activityData }"></div>
+        <div data-bind="template: { name: 'end_activity_template'}"></div>
+    </div>
+    <div id='recog-step-container' data-bind="visible: $data.activityAvailable() && !$data.inLoadingState() && $data.noActivity()">
+        <span>No activities found</span>
+    </div>
+</div>
+
+
+<script type="text/html" id="activity_template">
+    <div data-bind="attr: {id: $data.actId}" class="activity-row">
+        <div class="oj-flex" style="flex-wrap: nowrap;" data-bind="visible: $data.type=='REQUEST'">
+            <span class="activity-thumbnail oj-flex-item" data-bind="style: { backgroundImage: 'url(\'js/images/lookup.png\')' }"></span>
+            <div class="activity-content oj-flex-item">
+                <div class="activity-tweet">
+                    <strong data-bind="text: $data.fullName, attr: {title:'@' + $data.username}"></strong>
+                    <span class="activity-action"> tried to recognize an object</span>
+                    <span class="activity-metadata" data-bind="text: $data.created, attr: {title: $data.created}"></span>
+                </div>
+                <div class="activity-tweet">
+                    <span data-bind="visible: $data.recogObj">
+                        <span style="word-wrap: break-word" class="activity-label"><b>Object: </b></span>
+                        <span style="word-wrap: break-word" data-bind="text: $data.recogObj"></span>
+                    </span>
+                    <span data-bind="visible: $data.probability">
+                        <br/>
+                        <span style="word-wrap: break-word" class="activity-label"><b>Probability : </b></span>
+                        <span style="word-wrap: break-word" data-bind="text: $data.probability+'%'"></span>
+                    </span>
+                    <span data-bind="visible: $data.userVote">
+                        <br/>
+                        <span style="word-wrap: break-word" class="activity-label"><b>User Vote: </b></span>
+                        <span style="word-wrap: break-word" data-bind="text: $data.userVote"></span>
+                    </span>
+                </div>        
+            </div>
+        </div>
+
+        <div class="oj-flex" style="flex-wrap: nowrap;" data-bind="visible: $data.type==='ADMIN'">
+            <span class="activity-thumbnail oj-flex-item" data-bind="style: { backgroundImage: 'url(\'js/images/AdminTask.png\')' }"></span>
+            <div class="activity-content oj-flex-item">
+                <div class="activity-tweet">
+                    <strong data-bind="text: $data.fullName, attr: {title:'@' + $data.username}"></strong>
+                    <span class="activity-action">updated model</span>
+                    <span class="activity-metadata" data-bind="text: $data.created, attr: {title: $data.created}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</script>
+
+<script type="text/html" id="end_activity_template">
+    <div id="end-activity" class="activity-row" style="text-align: center;align-content: center">
+    <span class="activity-action" >--- End of activity ---</span>
+    </div>
+</script>

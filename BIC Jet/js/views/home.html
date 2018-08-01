@@ -1,0 +1,80 @@
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<table>
+    <tr>
+        <td style="width: 650px;">
+            <h1>
+                Welcome, 
+                <span data-bind="text:[[userFullName]]+' ..!'"/> 
+            </h1>
+        </td>
+        <td style="width: 650px;">
+            <div class='oj-flex-bar-middle' style="float: right;">                 
+                <oj-label for="display-choice" style="padding-right:8px;" >
+                    Display Mode 
+                </oj-label>
+                <oj-radioset id="display-choice" class="oj-choice-direction-row" value="{{threeDValue}}">
+                    <oj-option id="off" value="off">2D</oj-option>
+                    <oj-option id="on" value="on">3D</oj-option>
+                </oj-radioset>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div data-bind="visible: $data.initializing()">
+    <span>Please wait while we initialize the module ... </span>
+    <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
+</div>
+
+<div id='loading' data-bind="visible: !$data.recogResultPieSeries() && !$data.initializing()" style="margin-top: 40px; font-style: italic; color: red;">
+    <span class='oj-fwk-icon oj-fwk-icon-status-error'></span><span data-bind="text:$data.errorMessage()" style='margin-left: 10px; width: 100%;'/>
+</div>
+
+<div data-bind="visible: $data.recogResultPieSeries() && !$data.initializing()" style="width: 1200px;">
+
+    <table >
+        <tr>
+            <td style="width:50%">
+                <div>
+                    <oj-label for="requests" style="padding-right:8px;color: black; text-align: center;text-decoration: underline;" >
+                        <h3>BIC Requests </h3>
+                    </oj-label>
+                    <oj-chart id="requests"
+                              type="pie" 
+                              series="[[requestPieSeries]]"
+                              selection-mode="single"
+                              animation-on-display="auto"
+                              animation-on-data-change="auto"
+                              style-defaults.three-d-effect="[[threeDValue]]"
+                              hover-behavior="dim"
+                              legend.position="bottom"
+                              style-defaults.selection-effect="highlightAndExplode"
+                              style="max-width:500px;height:350px;"/></div>
+            </td>
+            <td style="width:50%">
+                <div>
+                    <oj-label for="recogResult" style="padding-right:8px;color: black; text-align: center;text-decoration: underline;" >
+                        <h3>BIC recognition results </h3>
+                    </oj-label>
+                    <oj-chart id="recogResult"
+                              type="pie" 
+                              series="[[recogResultPieSeries]]"
+                              selection-mode="single"
+                              animation-on-display="auto"
+                              animation-on-data-change="auto"
+                              style-defaults.three-d-effect="[[threeDValue]]"
+                              hover-behavior="dim"
+                              legend.position="bottom"
+                              style-defaults.selection-effect="highlightAndExplode"
+                              style="max-width:500px;height:350px;"/></div>
+
+            </td>
+        </tr>
+    </table>
+
+</div>

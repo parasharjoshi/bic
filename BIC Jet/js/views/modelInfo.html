@@ -1,0 +1,98 @@
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<div id='loading' data-bind="visible: $data.initializing()">
+    <span>Please wait while we get you the information ... </span>
+    <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
+</div>
+
+<div id='error' data-bind="visible: !$data.model() && !$data.initializing()" style="margin-top: 40px; font-style: italic; color: red;">
+    <span class='oj-fwk-icon oj-fwk-icon-status-error'></span><span data-bind="text:$data.errorMessage()" style='margin-left: 10px; width: 100%;'/>
+</div>
+
+<div style="width:100%;max-width:850px;display:inline-block;" data-bind="visible:  $data.model() && !$data.initializing()">
+    <oj-tab-bar id="tabs" edge="top" selection="{{selectedTab}}" >
+        <ul>
+            <li id="model-info"><a href="#"> 
+                    <span class="oj-tabbar-item-icon demo-catalog-icon-24 demo-icon-font-24"></span>
+                    Model Details</a></li>
+            <li id="labels"><a href="#"> 
+                    <span class="oj-tabbar-item-icon demo-chart-icon-24 demo-icon-font-24"></span>
+                    Supported Objects</a></li>
+            <li id="license"><a href="#"> 
+                    <span class="oj-tabbar-item-icon demo-bookmark-icon-16 demo-icon-font-24"></span>
+                    License Info</a></li>
+        </ul>
+    </oj-tab-bar>
+    <oj-switcher value="[[selectedTab]]">
+        <div slot="model-info">
+            <div class="demo-tab-content oj-flex-items-pad">
+                <h3 class="sectionHeader">Model information</h3>
+                <div class="oj-flex">
+                    <oj-table id='table'
+                              data='[[modelInfoTableDataProvider]]'
+                              dnd='{"reorder": {"columns": "disabled"}}'
+                              scroll-policy='loadMoreOnScroll'
+                              scroll-policy-options='{"fetchSize": 10}'
+                              columns='[{"headerText": "Attribute", 
+                              "field": "modelAttr",
+                              "headerClassName": "tableHeader",
+                              "className": "oj-sm-only-hide",
+                              "sortable":"disabled",
+                              "resizable": "disabled"},
+                              {"headerText": "Value", 
+                              "field": "modelValue",
+                              "headerClassName": "tableHeader",
+                              "sortable":"disabled",
+                              "resizable": "disabled"}]'
+                              style='width: 100%;'>
+                    </oj-table>
+                </div>
+            </div>
+        </div>
+        <div slot="labels">
+            <div class="demo-tab-content oj-flex-items-pad" aria-controls="pieChart">
+                <h3 class="sectionHeader">Model trained for objects (<span data-bind="text: $data.noOfObjects()"></span>)</h3>
+                <!--                    <oj-tag-cloud id='labels' layout='cloud' items='[[labelDataProvider]]'
+                                                  style='max-width:1200px;height:600px;margin-left:auto;margin-right:auto;'>
+                                    </oj-tag-cloud>-->
+                <!--                <div data-bind="foreach:$data.labelData()" style="white-space: pre-wrap; max-height: 600px; width: 600px; max-width: inherit; overflow-y: scroll;">
+                                    <span data-bind="text:$data"></span>
+                                </div>-->
+                <!--<oj-input-text id="filter" maxlength="30" placeholder="Type to filter labels" on-raw-value-changed="[[handleValueChanged]]" value="{{filter}}"></oj-input-text>-->
+                <oj-table id='label-table'
+                          data='[[labelDataProvider]]'
+                          dnd='{"reorder": {"columns": "disabled"}}'
+                          scroll-policy='loadMoreOnScroll'
+                          columns-default.sortable='disabled'
+                          columns='[{ 
+                          "field": "v1",
+                          "className": "oj-sm-only-hide",
+                          "resizable": "disabled"},
+                          {
+                          "field": "v2",
+                          "resizable": "disabled"},
+                          {
+                          "field": "v3",
+                          "resizable": "disabled"},
+                          {
+                          "field": "v4",
+                          "resizable": "disabled"}]'
+                          style='width: 100%;height: 500px;'>
+                </oj-table>
+            </div>
+        </div>
+        <div slot="license">
+            <div class="demo-tab-content oj-flex-items-pad" aria-controls="pieChart">
+                <h3 class="sectionHeader">License information for model</h3>
+                <div class="oj-flex">
+                    <div data-bind="text:$data.licenseInfo()" style="white-space: pre-wrap; max-height: 500px; width: 100%; overflow-y: scroll;"></div>
+                </div>
+            </div>
+        </div>
+    </oj-switcher>
+</div>

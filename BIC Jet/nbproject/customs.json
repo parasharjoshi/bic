@@ -1,0 +1,1934 @@
+{
+  "elements": {
+    "oj-film-strip": {
+      "attributes": {
+        "arrow-placement": {
+          "type": "string"
+        },
+        "arrow-visibility": {
+          "type": "string"
+        },
+        "current-item": {
+          "type": "object"
+        },
+        "max-items-per-page": {
+          "type": "number"
+        },
+        "orientation": {
+          "type": "string"
+        },
+        "translations": {
+          "type": "object"
+        }
+      }
+    },
+    "oj-form-layout" :{
+      "attributes" : {
+          "label-edge" : {
+                "type": "string"
+            },
+            "label-width" : {
+                "type": "string"
+            },
+            "max-columns" : {
+                "type": "number"
+            }
+      }  
+    },
+    "oj-dialog": {
+      "attributes": {
+        "resize-behavior": {
+          "type": "string"
+        },
+        "modality": {
+          "type": "string"
+        },
+        "style": {
+          "type": "object"
+        },
+        "title": {
+          "type": "string"
+        },
+        "drag-affordance": {
+          "type": "string"
+        },
+        "cancel-behavior": {
+          "type": "string"
+        },
+        "initial-visibility": {
+          "type": "string"
+        },
+        "position": {
+          "type": "object"
+        },
+        "role": {
+          "type": "string"
+        },
+        "translations": {
+          "type": "object"
+	    },
+	    "on-oj-animate-end" : {
+	        "type" : "function"
+	    },
+	    "on-oj-animate-start" : {
+	        "type" : "function"
+	    },
+	    "on-oj-before-close" : {
+	        "type" : "function"
+	    },
+	    "on-oj-before-open" :{
+	        "type" : "function"
+	    },
+	    "on-oj-close" : {
+	        "type": "function"
+	    },
+	    "on-oj-focus" : {
+	        "type": "function"
+	    },
+	    "on-oj-open" : {
+	        "type" : "function"
+	    },
+	    "on-oj-resize" : {
+	        "type" : "function"
+	    },
+	    "on-oj-resize-start" : {
+	        "type" : "function"
+	    },
+	    "on-oj-resize-stop" : {
+	        "type": "function"
+        }
+      }
+    },
+    "oj-conveyor-belt": {
+      "attributes": {
+        "content-parent": {
+          "type": "string"
+        },
+        "orientation": {
+          "type": "string"
+        },
+        "translations": {
+          "type": "objects"
+        }
+      }
+    },
+    "oj-radioset": {
+      "attributes": {
+        "described-by": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "display-options": {
+          "type": "object"
+        },
+        "help": {
+          "type": "object"
+        },
+        "labelled-by": {
+          "type": "string"
+        },
+        "messages-custom": {
+          "type": "array"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "translations": {
+          "type": "object"
+        },
+        "value": {
+          "type": "*"
+        }
+      }
+    },
+    "oj-checkboxset": {
+      "attributes": {
+        "described-by": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "display-options": {
+          "type": "object"
+        },
+        "help": {
+          "type": "object"
+        },
+            "help-hints" : {
+                "type" : "object"
+            },
+            "label-hint" : {
+              "type"   : "string"
+            },
+        "labelled-by": {
+          "type": "string"
+        },
+        "messages-custom": {
+          "type": "array"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "translations": {
+          "type": "object"
+        },
+        "value": {
+          "type": "*"
+            },
+            "on-oj-animate-end" : {
+                "type" : "function"
+            },
+            "on-oj-animate-start" : {
+                "type" : "function"
+        }
+      }
+    },
+    "oj-diagram": {
+      "attributes": {
+        "animation-on-data-change": {
+          "type": "string"
+        },
+        "animation-on-display": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object"
+        },
+        "dnd": {
+          "type": "object"
+        },
+        "focus-renderer": {
+          "type": "function"
+        },
+        "hidden-categories": {
+          "type": "array"
+        },
+        "highlight-match": {
+          "type": "string"
+        },
+        "highlighted-categories": {
+          "type": "array"
+        },
+        "hover-behavior": {
+          "type": "string"
+        },
+        "hover-renderer": {
+          "type": "function"
+        },
+        "layout": {
+          "type": "function"
+        },
+        "link-highlight-mode": {
+          "type": "string"
+        },
+        "link-properties": {
+          "type": "function"
+        },
+        "max-zoom": {
+          "type": "number"
+        },
+        "min-zoom": {
+          "type": "number"
+        },
+        "node-highlight-mode": {
+          "type": "string"
+        },
+        "node-properties": {
+          "type": "function"
+        },
+        "pan-direction": {
+          "type": "string"
+        },
+        "panning": {
+          "type": "string"
+        },
+        "promoted-link-behavior": {
+          "type": "string"
+        },
+        "renderer": {
+          "type": "function"
+        },
+        "selection": {
+          "type": "array"
+        },
+        "selection-mode": {
+          "type": "string"
+        },
+        "selection-renderer": {
+          "type": "function"
+        },
+        "style-defaults": {
+          "type": "object"
+        },
+        "tooltip": {
+          "type": "object"
+        },
+        "touch-response": {
+          "type": "string"
+        },
+        "track-resize": {
+          "type": "string"
+        },
+        "translations": {
+          "type": "object"
+        },
+        "zoom-renderer": {
+          "type": "function"
+        },
+        "zooming": {
+          "type": "string"
+            },
+            "on-oj-before-collapse" : {
+                "type" : "function"
+            },
+            "on-oj-before-expand" : {
+                "type" : "function"
+            },
+            "on-oj-collapse" : {
+                "type" : "function"
+            },
+            "on-oj-expand" : {
+                "type" : "function"
+        }
+      }
+    },
+    "oj-chart": {
+      "attributes": {
+        "animation-on-data-change": {
+          "type": "string"
+        },
+        "animation-on-display": {
+          "type": "string"
+        },
+        "coordinate-system": {
+          "type": "string"
+        },
+        "data-cursor": {
+          "type": "string"
+        },
+        "data-cursor-behavior": {
+          "type": "string"
+        },
+        "data-cursor-position": {
+          "type": "object"
+        },
+        "data-label": {
+          "type": "function"
+        },
+        "dnd": {
+          "type": "object"
+        },
+        "drag-mode": {
+          "type": "string"
+        },
+        "drilling": {
+          "type": "string"
+        },
+        "groups": {
+          "type": "array"
+        },
+        "hidden-categories": {
+          "type": "array"
+        },
+        "hide-and-show-behavior": {
+          "type": "string"
+        },
+        "highlight-match": {
+          "type": "string"
+        },
+        "highlighted-categories": {
+          "type": "array"
+        },
+        "hover-behavior": {
+          "type": "string"
+        },
+        "initial-zooming": {
+          "type": "string"
+        },
+        "legend": {
+          "type": "object"
+        },
+        "orientation": {
+          "type": "string"
+        },
+        "other-threshold": {
+          "type": "number"
+        },
+        "overview": {
+          "type": "object"
+        },
+        "pie-center": {
+          "type": "object"
+        },
+        "plot-area": {
+          "type": "object"
+        },
+        "polar-grid-shape": {
+          "type": "string"
+        },
+        "selection": {
+          "type": "array"
+        },
+        "selection-mode": {
+          "type": "string"
+        },
+        "series": {
+          "type": "array"
+        },
+        "sorting": {
+          "type": "string"
+        },
+        "split-dual-y": {
+          "type": "string"
+        },
+        "splitter-position": {
+          "type": "number"
+        },
+        "stack": {
+          "type": "string"
+        },
+        "stack-label": {
+          "type": "string"
+        },
+        "style-defaults": {
+          "type": "object"
+        },
+        "time-axis-type": {
+          "type": "string"
+        },
+        "tooltip": {
+          "type": "object"
+        },
+        "touch-response": {
+          "type": "string"
+        },
+        "track-resize": {
+          "type": "string"
+        },
+        "translations": {
+          "type": "object"
+        },
+        "type": {
+          "type": "string"
+        },
+        "value-formats": {
+          "type": "object"
+        },
+        "x-axis": {
+          "type": "object"
+        },
+        "y2-axis": {
+          "type": "object"
+        },
+        "y-axis": {
+          "type": "object"
+        },
+        "zoom-and-scroll": {
+          "type": "string"
+        },
+        "zoom-direction": {
+          "type": "string"
+            },
+            "on-oj-drill" : {
+                "type" : "function"
+            },
+            "on-oj-select-input" : {
+                "type" : "function"
+            },
+            "on-oj-viewport-change" : {
+                "type" : "function"
+            },
+            "on-oj-viewport-change-input" : {
+                "type" : "function"
+        }
+      }
+    },
+    "oj-input-password": {
+      "attributes": {
+        "autocomplete": {
+          "type": "string"
+        },
+        "autofocus": {
+          "type": "boolean"
+        },
+        "described-by": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "display-options": {
+          "type": "object"
+        },
+        "help": {
+          "type": "object"
+        },
+            "help-hints": {
+                "type": "object"
+            },
+            "inputmode": {
+                "type": "string"
+            },
+            "label-hint": {
+          "type": "string"
+        },
+        "messages-custom": {
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "raw-value": {
+          "type": "string"
+        },
+        "readonly": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "translations": {
+          "type": "object"
+        },
+        "validators": {
+          "type": "array"
+        },
+        "value": {
+          "type": "object"
+            },
+            "on-oj-animate-end" : {
+                "type" : "function"
+            },
+            "on-oj-animate-start" : {
+                "type" : "function"
+        }
+      }
+    },
+    "oj-thematic-map": {
+      "attributes": {
+        "animation-duration": {
+          "type": "number"
+        },
+        "animation-on-display": {
+          "type": "string"
+        },
+        "areas": {
+          "type": "array"
+        },
+        "focus-renderer": {
+          "type": "function"
+        },
+        "hidden-categories": {
+          "type": "array"
+        },
+        "highlight-match": {
+          "type": "string"
+        },
+        "highlighted-categories": {
+          "type": "array"
+        },
+        "hover-behavior": {
+          "type": "string"
+        },
+        "hover-renderer": {
+          "type": "function"
+        },
+        "initial-zooming": {
+          "type": "string"
+        },
+        "isolated-item": {
+          "type": "string"
+        },
+        "label-display": {
+          "type": "string"
+        },
+        "label-type": {
+          "type": "string"
+        },
+        "links": {
+          "type": "array"
+        },
+        "map-provider": {
+          "type": "object"
+        },
+        "marker-zoom-behavior": {
+          "type": "string"
+        },
+        "markers": {
+          "type": "array"
+        },
+        "max-zoom": {
+          "type": "number"
+        },
+        "panning": {
+          "type": "string"
+        },
+        "renderer": {
+          "type": "function"
+        },
+        "selection": {
+          "type": "array"
+        },
+        "selection-mode": {
+          "type": "string"
+        },
+        "selection-renderer": {
+          "type": "function"
+        },
+        "style-defaults": {
+          "type": "object"
+        },
+        "tooltip": {
+          "type": "object"
+        },
+        "tooltip-display": {
+          "type": "string"
+        },
+        "touch-response": {
+          "type": "string"
+        },
+        "track-resize": {
+          "type": "string"
+        },
+        "translations": {
+          "type": "object"
+        },
+        "zooming": {
+          "type": "string"
+        }
+      }
+    },
+    "oj-select-one": {
+      "attributes": {
+        "render-mode": {
+          "type": "string"
+        },
+        "options-keys": {
+          "type": "string"
+        },
+        "described-by": {
+          "description": "Accessiblity feature: ID of the element that describes this component.\nThis is usually an oj-label element",
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "help": {
+          "type": "object"
+        },
+        "messages-custom": {
+          "type": "array"
+        },
+        "minimum-results-for-search": {
+          "type": "number"
+        },
+        "picker-attributes": {
+          "type": "object"
+        },
+        "translations": {
+          "type": "object"
+        },
+        "display-options": {
+          "type": "object"
+        },
+        "options": {
+          "type": "array"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "placeholder": {
+          "type": "string"
+        },
+        "option-renderer": {
+          "type": "function"
+        },
+        "value": {
+          "type": "*"
+        }
+      }
+    },
+    "oj-option": {
+      "context": [
+        "oj-buttonset-one",
+        "oj-buttonset-many",
+        "oj-checkboxset",
+        "oj-combobox-one",
+        "oj-combobox-many",
+        "oj-menu",
+        "oj-radioset",
+        "oj-select-one",
+        "oj-select-many"
+      ],
+      "attributes": {
+        "disabled": {
+          "type": "boolean"
+        },
+        "value": {
+          "type": "*"
+        }
+      }
+    },
+    "oj-table": {
+      "attributes": {
+        "accessibility": {
+          "type": "object"
+        },
+        "columns": {
+          "type": "array"
+        },
+        "columns-default": {
+          "type": "object"
+        },
+        "current-row": {
+          "type": "object"
+        },
+        "data": {
+          "type": "oj.TableDataSource"
+        },
+        "display": {
+          "type": "string"
+        },
+        "dnd": {
+          "type": "object"
+        },
+        "edit-mode": {
+          "type": "string"
+        },
+        "horizontal-grid-visible": {
+          "type": "string"
+        },
+        "row-renderer": {
+          "type": "string"
+        },
+        "scroll-policy": {
+          "type": "string"
+        },
+        "scroll-policy-options": {
+          "type": "string"
+        },
+        "selection": {
+          "type": "string"
+        },
+        "selection-mode": {
+          "type": "string"
+        },
+        "translations": {
+          "type": "string"
+        },
+        "vertical-grid-visible": {
+          "type": "string"
+        }
+      }
+    },
+    "oj-buttonset-one": {     
+      "attributes": {
+        "chroming": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "display": {
+          "type": "string"
+        },
+        "translations": {
+          "type": "object"
+        },
+        "focus-management": {
+          "type": "string"
+        },
+        "value": {
+          "type": "*"
+        }
+      }
+    },
+    "oj-color-palette": {
+        "attributes" : {
+            "described-by" : {
+                "type" : "string"
+            },
+            "disabled" : {
+                "type" : "boolean"
+            },
+            "display-options" : {
+                "type" : "object"
+            },
+            "help" : {
+                "type" : "object"
+            },
+            "help-hints" : {
+                "type" : "object"
+            },
+            "label-display" : {
+                "type" : "string"
+            },
+            "label-hint" : {
+                "type" : "string"
+            },
+            "labelled-by" : {
+                "type" : "string"
+            },
+            "layout" : {
+                "type" : "string"
+            },
+            "messages-custom" : {
+                "type" : "array"
+            },
+            "palette" : {
+                "type" : "array"
+            },
+            "swatch-size" : {
+                "type" : "string" 
+            },
+            "translations" : {
+                "type" : "object"
+            },
+            "value" : {
+                "type" : "object"
+            },
+            "on-oj-animate-end" : {
+                "type" : "function"
+            },
+            "on-oj-animate-start" : {
+                "type" : "function"
+            }
+        }
+    },
+    "oj-masonry-layout": {},
+    "oj-optgroup": {},
+    "oj-switcher": {},
+    "oj-avatar": {      
+      "attributes": {
+        "initials": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "src": {
+          "type": "string"
+        }
+      }
+    },
+    "oj-indexer": {
+        "attributes" : {
+            "data" : {
+                "type": "object"
+            },
+            "translations" : {
+                "type": "object"
+            }
+        }
+    },
+    "oj-n-box": {},
+    "oj-timeline": {},
+    "oj-spark-chart": {},
+    "oj-data-grid": {
+        "attributes" : {
+            "banding-interval" : {
+                "type" : "object"
+            },
+            "cell" : {
+                "type" : "object"
+            },
+            "current-cell" : {
+                "type" : "object"
+            },
+            "data" : {
+                "type" : "object"
+            },
+            "dnd" : {
+                "type" : "object"
+            },
+            "gridlines" : {
+                "type" : "object"
+            },
+            "header" : {
+                "type" : "object"
+            },
+            "scroll-policy" : {
+                "type" : "string"
+            },
+            "scroll-position" : {
+                "type" : "object"
+            },
+            "selection" : {
+                "type" : "array"
+            },
+            "selection-mode" : {
+                "type" : "object"
+            },
+            "translations" : {
+                "type" : "object"
+            },
+            "on-oj-before-current-cell": {
+            "type" : "function"
+            },
+            "on-oj-resize" : {
+                "type" : "function"
+            },
+            "on-oj-scroll" : {
+                "type" : "function"
+            },
+            "on-oj-sort" : {
+                "type" : "function"
+            }                
+        }
+    },
+    "oj-popup": {},
+    "oj-select-many": {},
+    "oj-button": {
+      "attributes": {
+        "chroming": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "display": {
+          "type": "string"
+        },
+        "translations": {
+          "type": "object"
+        },
+        "on-click": {
+          "type": "function"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "oj-time-axis": {},
+    "oj-input-date-time": {
+        "attributes" : {
+            "autocomplete" : {
+                "type": "string"
+            },
+            "autofocus" : {
+                "type": "boolean"
+            },
+            "converter" : {
+                "type": "object"
+            },
+            "date-picker" : {
+                "type": "object"
+            },
+            "day-formatter" : {
+                "type": "function"
+            },
+            "day-meta-data" : {
+                "type" : "object"
+            },
+            "described-by" : {
+                "type": "string"
+            },
+            "disabled" : {
+                "type": "boolean"
+            },
+            "display-options" : {
+                "type": "object"
+            },
+            "help" : {
+                "type": "object"
+            },
+            "help-hints" : {
+                "type": "object"
+            },
+            "inputmode" : {
+                "type": "string"
+            },
+            "label-hint" : {
+                "type": "string"
+            },
+            "max" : {
+                "type": "string"
+            },
+            "messages-custom" : {
+                "type": "array"
+            },
+            "min" : {
+                "type": "string"
+            },
+            "name" : {
+                "type": "string"
+            },
+            "picker-attributes" : {
+                "type": "object"
+            },
+            "placeholder" : {
+                "type": "string"
+            },
+            "raw-value" : {
+                "type": "string"
+            },
+            "readonly" : {
+                "type": "boolean"
+            },
+            "render-mode" : {
+                "type": "string"
+            },
+            "required" : {
+                "type": "boolean"
+            },
+            "time-picker": {
+                "type": "object"
+            },
+            "translations" : {
+                "type": "object"
+            },
+            "validators" : {
+                "type": "array"
+            },
+            "value" : {
+                "type": "string"
+            },
+            "on-oj-animate-end" : {
+                "type": "function"
+            },
+            "on-oj-animate-start" : {
+                "type": "function"
+            }
+        }
+    },
+    "oj-file-picker": {
+        "attributes" : {
+            "accept" : {
+                "type": "array"
+            },
+            "select-on" : {
+                "type" : "string"
+            },
+            "selection-mode" : {
+                "type" : "string"
+            },
+            "on-oj-select" : {
+                "type" : "function"
+            }
+        }
+    },
+    "oj-led-gauge": {},
+    "oj-buttonset-many": {     
+      "attributes": {
+        "chroming": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "display": {
+          "type": "string"
+        },
+        "translations": {
+          "type": "object"
+        },
+        "focus-management": {
+          "type": "string"
+        },
+        "value": {
+          "type": "*"
+        }
+      }
+    },
+    "oj-progress-list": {},
+    "oj-date-picker": {
+        "attributes" : {
+            "autocomplete" : {
+                "type" : "string"
+            },
+            "autofocus" : {
+                "type": "boolean"
+            },
+            "converter" : {
+                "type": "object"
+            },
+            "date-picker" : {
+                "type": "object"
+            },
+            "day-formatter" : {
+                "type": "function"
+            },
+            "day-meta-data": {
+                "type": "object"
+            },
+            "described-by" : {
+                "type": "string"
+            },
+            "disabled" : {
+                "type": "boolean"
+            },
+            "display-options" : {
+                "type": "object"
+            },
+            "help" : {
+                "type": "object"
+            },
+            "help-hints" : {
+                "type": "object"
+            },
+            "inputmode": {
+                "type": "string"
+            },
+            "keyboard-edit" : {
+                "type": "string"
+            },
+            "label-hint" : {
+                "type": "string"
+            },
+            "max" : {
+                "type": "string"
+            },
+            "messages-custom" : {
+                "type": "array"
+            },
+            "min" : {
+                "type": "string"
+            },
+            "name" : {
+                "type": "string"
+            },
+            "picker-attributes" : {
+                "type": "object"
+            },
+            "placeholder" : {
+                "type": "string"
+            },
+            "raw-value" : {
+                "type": "string"
+            },
+            "readonly" : {
+                "type": "boolean"
+            },
+            "render-mode" : {
+                "type": "string"
+            },
+            "required" : {
+                "type": "boolean"
+            },
+            "translations" : {
+                "type": "object"
+            },
+            "validators" : {
+                "type": "array"
+            },
+            "value" : {
+                "type": "string"
+            },
+            "on-oj-animate-end" : {
+                "type": "function"
+            },
+            "on-oj-animate-start" : {
+                "type": "function"
+            }
+        }
+    },
+    "oj-progress": {},
+    "oj-collapsible": {
+        "attributes" : {
+            "disabled" : {
+                "type" : "boolean"
+            },
+            "expand-area" : {
+                "type" : "string"
+            },
+            "expanded" : {
+                "type" : "boolean"
+            },
+            "translations" : {
+                "type" : "object" 
+            },
+            "on-oj-before-collapse" : {
+                "type" : "function"
+            },
+            "on-oj-before-expand" : {
+                "type" : "function"
+            },
+            "on-oj-collapse" : {
+                "type" : "function"
+            },
+            "on-oj-expand" : {
+                "type" : "function"
+            }
+        }
+    },
+    "oj-picto-chart": {},
+    "oj-paging-control": {},
+    "oj-input-number": {
+        "attributes" : {
+            "autocomplete" : {
+                "type": "string"
+            },
+            "autofocus" : {
+                "type": "boolean"
+            },
+            "converter" : {
+                "type": "object"
+            },
+            "described-by" : {
+                "type": "string"
+            },
+            "disabled" : {
+                "type": "boolean"
+            },
+            "display-options" : {
+                "type": "object"
+            },
+            "help" : {
+                "type": "object"
+            },
+            "help-hints" : {
+                "type": "object"
+            },
+            "label-hint" : {
+                "type": "string"
+            },
+            "max" : {
+                "type": "string"
+            },
+            "messages-custom" : {
+                "type": "array"
+            },
+            "min" : {
+                "type": "string"
+            },
+            "name" : {
+                "type": "string"
+            },
+            "placeholder" : {
+                "type": "string"
+            },
+            "raw-value" : {
+                "type": "string"
+            },
+            "readonly" : {
+                "type": "boolean"
+            },
+            "required" : {
+                "type": "boolean"
+            },
+            "step": {
+                "type": "number"
+            },
+            "translations" : {
+                "type": "object"
+            },
+            "validators" : {
+                "type": "array"
+            },
+            "value" : {
+                "type": "string"
+            },
+            "on-oj-animate-end" : {
+                "type": "function"
+            },
+            "on-oj-animate-start" : {
+                "type": "function"
+            }
+      }
+    },
+    "oj-switch": {
+      "attributes": {
+        "value": {
+          "type": "boolean"
+        }
+      }
+    },
+    "oj-text-area": {},
+    "oj-color-spectrum": {
+        "attributes" : {
+            "described-by" : {
+                "type" : "string"
+            },
+            "disabled" : {
+                "type" : "boolean"
+            },
+            "display-options" : {
+                "type" : "object"
+            },
+            "help" : {
+                "type" : "object"
+            },
+            "help-hints" : {
+                "type" : "object"
+            },
+            "label-hint" : {
+                "type" : "string"
+            },
+            "labelled-by" : {
+                "type" : "string"
+            },
+            "messages-custom" : {
+                "type" : "array"
+            },
+            "translations" : {
+                "type" : "object"
+            },
+            "value" : {
+                "type" : "object"
+            },
+            "on-oj-animate-end" : {
+                "type" : "function"
+            },
+            "on-oj-animate-start" : {
+                "type" : "function"
+            }
+        }
+    },
+    "oj-menu-button": {},
+    "oj-status-meter-gauge": {
+      "attributes": {
+        "thresholds": {},
+        "min": {},
+        "readonly": {},
+        "max": {},
+        "step": {},
+        "value": {}
+      }
+    },
+    "oj-toolbar": {
+      "attributes": {
+        "aria-label": {
+          "type": "string"
+        }
+      }
+    },
+    "oj-tree-view": {},
+    "oj-sunburst": {},
+    "oj-train": {
+        "attributes": {
+            "on-oj-select": {
+                "type": "function"
+            },
+            "selected-step": {
+                "type": "string"
+            },
+            "steps": {
+                "type": "array"
+            },
+            "style": {},
+            "class": {}
+        }
+    },
+    "oj-row-expander": {},
+    "oj-treemap": {},
+    "oj-slider": {},
+    "oj-legend": {},
+    "oj-date-time-picker": {
+        "attributes" : {
+            "autocomplete" : {
+                "type" : "string"
+            },
+            "autofocus" : {
+                "type": "boolean"
+            },
+            "converter" : {
+                "type": "object"
+            },
+            "date-picker" : {
+                "type": "object"
+            },
+            "day-formatter" : {
+                "type": "function"
+            },
+            "day-meta-data": {
+                "type": "object"
+            },
+            "described-by" : {
+                "type": "string"
+            },
+            "disabled" : {
+                "type": "boolean"
+            },
+            "display-options" : {
+                "type": "object"
+            },
+            "help" : {
+                "type": "object"
+            },
+            "help-hints" : {
+                "type": "object"
+            },
+            "inputmode": {
+                "type": "string"
+            },
+            "keyboard-edit" : {
+                "type": "string"
+            },
+            "label-hint" : {
+                "type": "string"
+            },
+            "max" : {
+                "type": "string"
+            },
+            "messages-custom" : {
+                "type": "array"
+            },
+            "min" : {
+                "type": "string"
+            },
+            "name" : {
+                "type": "string"
+            },
+            "picker-attributes" : {
+                "type": "object"
+            },
+            "placeholder" : {
+                "type": "string"
+            },
+            "raw-value" : {
+                "type": "string"
+            },
+            "readonly" : {
+                "type": "boolean"
+            },
+            "render-mode": {
+                "type": "string"
+            },
+            "required": {
+                "type": "boolean"
+            },
+            "time-picker": {
+                "type": "object"
+            },
+            "translations": {
+                "type": "object"
+            },
+            "validators": {
+                "type": "array"
+            },
+            "value": {
+                "type": "string"
+            },
+            "on-oj-animate-end" : {
+                "type": "function"
+            },
+            "on-oj-animate-start" : {
+                "type": "function"
+            }
+        }
+    },
+    "oj-combobox-many": {
+        "attributes" : {
+            "converter" : {
+                "type" : "object"
+            },
+            "described-by" : {
+                "type" : "string"
+            },
+            "disabled" : {
+                "type" : "boolean"
+            },
+            "display-options" : {
+                "type" : "object"
+            },
+            "help" : {
+                "type" : "object"
+            },
+            "help-hints" : {
+                "type" : "object"
+            },
+            "label-hint" : {
+                "type" : "string"
+            },
+            "messages-custom" : {
+                "type" : "array"
+            },
+            "min-length" : {
+                "type" : "number"
+            },
+            "option-renderer" : {
+                "type" : "function"
+            },
+            "options" : {
+                "type" : "array"
+            },
+            "options-keys" : {
+                "type" : "object"
+            },
+            "picker-attributes" : {
+                "type" : "object"
+            },
+            "placeholder" : {
+                "type" : "string"
+            },
+            "raw-value" : {
+                "type" : "string"
+            },
+            "required" : {
+                "type" : "boolean"
+            },
+            "translations" : {
+                "type" : "object"
+            },
+            "validators" : {
+                "type" : "array"
+            },
+            "value" : {
+                "type" : "array"
+            },
+            "on-oj-animate-end" : {
+                "type" : "function"
+            },
+            "on-oj-animate-start" : {
+                "type" : "function"
+            }
+        }
+    },
+    "oj-tag-cloud": {},
+    "oj-rating-gauge": {},
+    "oj-accordion": {
+        "attributes": {
+            "expanded": {
+                "type": "array"
+            },
+            "multiple": {
+                "type": "boolean"
+            },
+            "translations": {
+                "type": "object"
+            },
+            "on-oj-before-collapse": {
+                "type": "function"
+            },
+            "on-oj-before-expand": {
+                "type": "function"
+            },
+            "on-oj-collapse": {
+                "type": "function"
+            },
+            "on-oj-expand": {
+                "type": "function"
+            }
+        }
+    },
+    "oj-input-time": {
+        "attributes" : {
+            "autocomplete" : {
+                "type": "string"
+            },
+            "autofocus" : {
+                "type": "boolean"
+            },
+            "converter" : {
+                "type": "object"
+            },
+            "described-by" : {
+                "type": "string"
+            },
+            "disabled" : {
+                "type": "boolean"
+            },
+            "display-options" : {
+                "type": "object"
+            },
+            "help" : {
+                "type": "object"
+            },
+            "help-hints" : {
+                "type": "object"
+            },
+            "inputmode" : {
+                "type": "string"
+            },
+            "keyboard-edit" : {
+                "type": "string"
+            },
+            "label-hint" : {
+                "type": "string"
+            },
+            "max" : {
+                "type": "string"
+            },
+            "messages-custom" : {
+                "type": "array"
+            },
+            "min" : {
+                "type": "string"
+            },
+            "name" : {
+                "type": "string"
+            },
+            "picker-attributes" : {
+                "type": "object"
+            },
+            "placeholder" : {
+                "type": "string"
+            },
+            "raw-value" : {
+                "type": "string"
+            },
+            "readonly" : {
+                "type": "boolean"
+            },
+            "render-mode" : {
+                "type": "string"
+            },
+            "required" : {
+                "type": "boolean"
+            },
+            "time-picker": {
+                "type": "object"
+            },
+            "translations" : {
+                "type": "object"
+            },
+            "validators" : {
+                "type": "array"
+            },
+            "value" : {
+                "type": "string"
+            },
+            "on-oj-animate-end" : {
+                "type": "function"
+            },
+            "on-oj-animate-start" : {
+                "type": "function"
+            }
+        }
+    },
+    "oj-label": {
+        "attributes": {
+            "class": {},
+            "id": {
+                "type": "string",
+                "required": true
+            },
+            "for":{
+                "type": "string"
+            },
+            "help": {
+                "type": "object"
+            },
+            "label-id": {
+                "type": "string"
+            },
+            "show-required" : {
+                "type": "boolean"
+            },
+            "translations" : {
+                "type": "object"
+            }
+        }
+    },
+    "oj-list-view": {},
+    "oj-defer": {},
+    "oj-input-date": {
+        "attributes" : {
+            "autocomplete" : {
+                "type": "string"
+            },
+            "autofocus" : {
+                "type": "boolean"
+            },
+            "converter" : {
+                "type": "object"
+            },
+            "date-picker" : {
+                "type": "object"
+            },
+            "day-formatter" : {
+                "type": "function"
+            },
+            "day-meta-data" : {
+                "type" : "object"
+            },
+            "described-by" : {
+                "type": "string"
+            },
+            "disabled" : {
+                "type": "boolean"
+            },
+            "display-options" : {
+                "type": "object"
+            },
+            "help" : {
+                "type": "object"
+            },
+            "help-hints" : {
+                "type": "object"
+            },
+            "inputmode" : {
+                "type": "string"
+            },
+            "label-hint" : {
+                "type": "string"
+            },
+            "max" : {
+                "type": "string"
+            },
+            "messages-custom" : {
+                "type": "array"
+            },
+            "min" : {
+                "type": "string"
+            },
+            "name" : {
+                "type": "string"
+            },
+            "picker-attributes" : {
+                "type": "object"
+            },
+            "placeholder" : {
+                "type": "string"
+            },
+            "raw-value" : {
+                "type": "string"
+            },
+            "readonly" : {
+                "type": "boolean"
+            },
+            "render-mode" : {
+                "type": "string"
+            },
+            "required" : {
+                "type": "boolean"
+            },
+            "translations" : {
+                "type": "object"
+            },
+            "validators" : {
+                "type": "array"
+            },
+            "value" : {
+                "type": "string"
+            },
+            "on-oj-animate-end" : {
+                "type": "function"
+            },
+            "on-oj-animate-start" : {
+                "type": "function"
+            }
+        }
+    },
+    "oj-menu": {},
+    "oj-gantt": {
+        "attribute" : {
+            "animation-on-data-change" : {
+                "type": "string"
+            },
+            "animation-on-display" : {
+                "type": "string"
+            },
+            "axis-position" : {
+                "type": "string"
+            },
+            "dependencies" : {
+                "type": "array"
+            },
+            "end" : {
+                "type": "string"
+            },
+            "gridlines" : {
+                "type": "object"
+            },
+            "major-axis" : {
+                "type": "object"
+            },
+            "minor-axis" : {
+                "type": "object"
+            },
+            "reference-objects" : {
+                "type" : "array"
+            },
+            "row-axis" : {
+                "type": "object"
+            },
+            "rows" : {
+                "type": "array"
+            },
+            "selection" : {
+                "type": "array"
+            },
+            "selection-mode" : {
+                "type": "string"
+            },
+            "start" : {
+                "type": "string"
+            },
+            "task-defaults" : {
+                "type" : "object"
+            },
+            "tooltip" : {
+                "type": "object"
+            },
+            "track-resize" : {
+                "type": "string"
+            },
+            "translations" : {
+                "type": "object"
+            },
+            "value-formats" : {
+                "type": "object"
+            },
+            "viewport-end" : {
+                "type": "string"
+            },
+            "viewport-start" : {
+                "type": "string"
+            },
+            "on-oj-viewport-change" : {
+                "type" : "function"
+            }
+        }
+    },
+    "oj-input-text": {
+        "attributes": {
+            "autocomplete": {
+                "type": "string"
+            },
+            "autofocus": {
+                "type": "boolean"
+            },
+            "converter": {
+                "type": "object"
+            },
+            "described-by": {
+                "type": "string"
+            },
+            "disabled": {
+                "type": "boolean"
+            },
+            "display-options": {
+                "type": "object"
+            },
+            "help": {
+                "type": "object"
+            },
+            "help-hints": {
+                "type": "object"
+            },
+            "inputmode": {
+                "type": "string"
+            },
+            "label-hint": {
+                "type": "string"
+            },
+            "list" : {
+                "type": "string"
+            },
+            "messages-custom": {
+                "type": "array"
+            },
+            "name": {
+                "type": "string"
+            },
+            "placeholder": {
+                "type": "string"
+            },
+            "raw-value": {
+                "type": "string"
+            },
+            "readonly": {
+                "type": "boolean"
+            },
+            "required": {
+                "type": "boolean"
+            },
+            "spellcheck": {
+                "type": "boolean"
+            },
+            "translations": {
+                "type": "object"
+            },
+            "validators": {
+                "type": "array"
+            },
+            "value": {
+                "type": "object"
+            },
+            "on-oj-animate-end" : {
+                "type" : "function"
+            },
+            "on-oj-animate-start" : {
+                "type" : "function"
+            }
+        }
+    },
+    "oj-list-view": {},
+    "oj-menu": {},
+    "oj-combobox-one": {
+        "attributes" : {
+            "converter" : {
+                "type" : "object"
+            },
+            "described-by" : {
+                "type" : "string"
+            },
+            "disabled" : {
+                "type" : "boolean"
+            },
+            "display-options" : {
+                "type" : "object"
+            },
+            "help" : {
+                "type" : "object"
+            },
+            "help-hints" : {
+                "type" : "object"
+            },
+            "label-hint" : {
+                "type" : "string"
+            },
+            "messages-custom" : {
+                "type" : "array"
+            },
+            "min-length" : {
+                "type" : "number"
+            },
+            "option-renderer" : {
+                "type" : "function"
+            },
+            "options" : {
+                "type" : "array"
+            },
+            "options-keys" : {
+                "type" : "object"
+            },
+            "picker-attributes" : {
+                "type" : "object"
+            },
+            "placeholder" : {
+                "type" : "string"
+            },
+            "raw-value" : {
+                "type" : "string"
+            },
+            "required" : {
+                "type" : "boolean"
+            },
+            "translations" : {
+                "type" : "object"
+            },
+            "validators" : {
+                "type" : "array"
+            },
+            "value" : {
+                "type" : "array"
+            },
+            "on-oj-animate-end" : {
+                "type" : "function"
+            },
+            "on-oj-animate-start" : {
+                "type" : "function"
+            }
+        }
+    },
+    "oj-navigation-list": {},
+    "oj-tab-bar": {}
+  },
+  "attributes": {
+    "slot": {
+      "context": "div"
+    },
+    "id": {
+      "type": "string"
+    }
+  }
+}

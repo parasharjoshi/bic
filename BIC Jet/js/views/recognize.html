@@ -1,0 +1,218 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+-->
+<div class="oj-hybrid-padding">
+    <table>
+        <tr>
+            <td style="width: 650px;" valign="top">
+                <h1>Recognize Image</h1>
+                <div style="width: 620px;">
+                    This page has functionalities to allow you to upload an image an recognize it using the underlying model.
+                </div>
+                <div id='loading' data-bind="visible: $data.initializing()">
+                    <span>Please wait while we initialize the module ... </span>
+                    <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
+                </div>
+                <div id='error' data-bind="visible: !$data.recogEnabled() && !$data.initializing()" style="margin-top: 40px; font-style: italic; color: red;">
+                    <span class='oj-fwk-icon oj-fwk-icon-status-error'></span><span data-bind="text:$data.errorMessage()" style='margin-left: 10px; width: 100%;'/>
+                </div>
+                <div id='recog-step-container' data-bind="visible: $data.recogEnabled() && !$data.initializing()">
+                    <br/>
+                    <div>
+                        <table>
+                            <tr>
+                                <td style="width: 30px;height: 24px;">
+                                    <span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.fileName()"></span>
+                                </td>
+                                <td>
+                                    <h5><span style="margin-top: 20px;">1. Choose an image file to upload.</span></h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+
+                                    <table style="margin-left: 20px; margin-right: 20px">
+                                        <tr>
+                                            <td>
+                                        <oj-file-picker accept="[[acceptArr]]"
+                                                        selection-mode="single"
+                                                        on-oj-select='[[selectListener]]'
+                                                        style="max-width:300px;">
+                                        </oj-file-picker>
+                                </td>
+                                <td>
+                                    <span slot='startIcon' class="demo-garbage-icon-24 demo-icon-font-24" data-bind="visible: $data.fileName(), click: $data.clearFiles, attr: {title:'Click to clear selected file'}" style="margin-left: 20px;cursor: pointer; float: left;"></span>
+                                </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <div data-bind="visible:$data.errorMessage()">
+                                    <span class='oj-fwk-icon oj-fwk-icon-status-error'></span><span data-bind="text:$data.errorMessage()" style='margin-left: 10px; width: 100%;'></span>
+                                </div>
+                            </td>
+                        </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <!--    Step 2 upload and recognize image-->
+                    <div>
+                        <table>
+                            <tr>
+                                <td style="width: 30px;height: 24px;">
+                                    <span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.uploaded()"></span>
+                                </td>
+                                <td>
+                                    <h5><span style="margin-top: 30px;">2. Upload the file for recognition</span></h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div style="padding-top:8px;margin-left: 20px;">
+                                        <oj-button id='recog-button' slot='trigger' on-oj-action='[[uploadAndRecog]]' disabled="true">
+                                            <span slot='startIcon' class='oj-fwk-icon oj-fwk-icon-arrowbox-n'></span>
+                                            Upload & Recognize.
+                                        </oj-button>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <!--    Step 3 Show recognition result -->
+                    <div>
+                        <table>
+                            <tr>
+                                <td style="width: 30px;height: 24px;">
+                                    <span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.resultRetrieved() && !$data.errorMessage()"></span>
+                                    <span class='oj-fwk-icon oj-fwk-icon-status-error' data-bind="visible: $data.resultRetrieved() && $data.errorMessage()"></span>
+                                </td>
+                                <td>
+                                    <h5><span style="margin-top: 30px;">3. Recognition result</span></h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div data-bind="visible: $data.inLoadingState()">
+                                        <span>Please Wait... </span>
+                                        <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
+                                    </div>
+                                    <div data-bind="visible: !$data.inLoadingState()">
+                                        <div class='oj-flex-bar' style="padding-top:8px;margin-left: 20px;" data-bind="visible: !$data.resultRetrieved()">
+                                            <oj-label id="inlineLabelId2"  
+                                                      class="oj-label-inline" style='color: silver;'>Please choose an image file and upload it to get the recognition results..!</oj-label>
+                                            <div class='oj-flex-bar-middle'>                     
+
+                                            </div>
+                                        </div> 
+                                        <div class='oj-flex-bar' style="padding-top:8px;margin-left: 20px;" data-bind="visible: $data.resultRetrieved()">
+                                            <div id='result-div' class='oj-flex-bar-middle'> 
+                                                <table>
+                                                    <tr data-bind="visible: $data.recognizedObj()">
+                                                        <td>
+                                                            <span data-bind="text: 'Best Guess : '" style="font-size: larger;"/>
+                                                        </td>
+                                                        <td>
+                                                            <span data-bind="text: $data.recognizedObj()" style="font-size: x-large; margin-left: 10px;"/>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr data-bind="visible: $data.resultProbability()">
+                                                        <td>
+                                                            <span data-bind="text: 'Probability : '" style="font-size: larger;"/>
+                                                        </td>
+                                                        <td>
+                                                            <span data-bind="text: $data.resultProbability()+'%'" style="font-size: x-large; margin-left: 10px;"/>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr data-bind="visible: $data.errorMessage()">
+                                                        <td>
+                                                            <span data-bind="text: 'Error : '" style="font-size: larger;color: red"/>
+                                                        </td>
+                                                        <td>
+                                                            <div data-bind="text: $data.errorMessage()" style="color: red;font-size: inherit; margin-left: 10px;width: 500px; word-wrap: break-word;"></div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <!--Step 4 request for feedback-->
+                    <div data-bind="visible: $data.resultRetrieved() && !$data.errorMessage()">
+                        <table>
+                            <tr>
+                                <td style="width: 30px;height: 24px;">
+                                    <span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.feedbackProvided()"></span>
+                                </td>
+                                <td>
+                                    <h5><span style="margin-top: 30px;">4. Feedback</span></h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class='oj-flex-bar' style="padding-top:8px;margin-left: 20px;" data-bind="visible: !$data.feedbackProvided()">
+                                        <div class='oj-flex-bar-start'>       
+                                            <oj-label id="inlineLabelId2"  
+                                                      class="oj-label-inline">Did we recognize it?</oj-label>
+                                        </div>
+                                        <div class='oj-flex-bar-middle'>                     
+                                            <!-- You need to set the labelled-by attribute 
+                                            to make this accessible. -->
+                                            <oj-radioset id="feedbackSet"
+                                                         labelled-by="inlineLabelId2"  class="oj-choice-direction-row"
+                                                         value="{{feedbackValue}}">
+                                                <oj-option id="yes" value="true">Yes</oj-option>
+                                                <oj-option id="no" value="false">No</oj-option>
+                                                <oj-option id="unknown" value="unknown">Not Sure</oj-option>
+                                            </oj-radioset>
+                                            <oj-button id='feedback-submit-button' slot='trigger' on-oj-action='[[submitFeedback]]' disabled="[[enableFeedbackButton]]">
+                                                <span slot='startIcon' class='oj-fwk-icon oj-fwk-icon-status-info'></span>
+                                                Submit feedback
+                                            </oj-button>
+                                        </div>
+                                    </div>
+                                    <div class='oj-flex-bar' style="padding-top:8px;margin-left: 20px;" data-bind="visible: $data.feedbackProvided()">
+                                        <div class='oj-flex-bar-start'>       
+                                            <oj-label id="inlineLabelId2"  
+                                                      class="oj-label-inline">Thank you for your feedback!</oj-label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+            <!--<td style="width: 20px">
+                <span data-bind="visible: !$data.uploaded()"></span>
+                <div style="border-left: 4px solid silver;height: 500px; margin-top: 50px" data-bind="visible: $data.uploaded()"></div>
+            </td>-->
+            <td style="max-width: 700px;max-height: 500px;"  valign="top">
+                <!--    <span data-bind="visible: !$data.uploaded()" data-bind="visible: !$data.uploaded()"style="width: 700px; margin-left: 50px;"></span>-->
+                <table style="width: 700px; margin-left: 50px;" data-bind="visible: $data.fileName() && $data.fileSrc()">
+                    <tr>
+                        <td><h2>Image: <span data-bind="text: $data.fileName()"/></h2></td>
+                    </tr>
+                    <tr>
+                        <td ><img data-bind = "attr: {'src': $data.fileSrc(), 'title': $data.fileName()}" style="max-width: 700px;max-height: 500px;border: 2px solid black;"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
