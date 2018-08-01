@@ -115,13 +115,13 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-el
                 // Application Name used in Branding Area
                 self.appName = ko.observable("Basic Image Classifier");
                 
-                self.userLogin = ko.observable('parasjos');
+                /*self.userLogin = ko.observable('parasjos');
                 self.isAdmin = ko.observable(true);
-                self.userFullName = ko.observable('Parashar Joshi');
+                self.userFullName = ko.observable('Parashar Joshi');*/
                 // User Info used in Global Navigation area
-                /*self.userLogin = ko.observable(null);
+                self.userLogin = ko.observable(null);
                 self.isAdmin = ko.observable(null);
-                self.userFullName = ko.observable();*/
+                self.userFullName = ko.observable();
 
                 // Footer
                 function footerLink(name, id, linkTarget) {
