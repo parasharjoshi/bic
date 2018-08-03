@@ -89,4 +89,9 @@ public class BicServiceWrapper {
         System.out.println("Got request to getAllActivity....");
         return activityServiceBean.getAllActivities();
     }
+    
+    public Boolean isUserNameExists(String userName) {
+        System.out.println("Got request to isUserNameExists....");
+        return loginServBean.isUserNameTaken(userName);
+    }
 }

@@ -19,6 +19,7 @@ import com.oracle.bits.bic.to.Credential;
 import com.oracle.bits.bic.to.UserTO;
 import com.oracle.bits.bic.util.ProjectConstants;
 import java.util.Date;
+import java.util.logging.Level;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -83,6 +84,16 @@ public class LoginServiceBean {
         }
         else {
             throw new EntityNotFoundException();
+        }
+    }
+    
+    public boolean isUserNameTaken(String userName) {
+        try {
+            return isUserNameAvailable(userName);
+        }
+        catch (ValidationException ex) {
+            LOG.error("ValidationException.", ex);
+            return false;
         }
     }
 

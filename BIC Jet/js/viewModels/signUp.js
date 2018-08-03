@@ -23,6 +23,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'appController', 'restClient', 'ojs/
         this.enableCheck = ko.computed(function () {
             return !(this.userName());
         }, this);
+        this.userNameAvailability = ko.observable(null);
+        this.userNameMessage = ko.observable(null);
         this.errorMessage = ko.observable(null);
         this.signupSuccess = ko.observable(false);
         this.enableSignupForm = ko.computed(function () {
@@ -65,9 +67,26 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'appController', 'restClient', 'ojs/
 
         self.checkUserName = function () {
             console.log("Checking username " + self.userName());
-            self.userName(null);
-            self.password(null);
-            self.errorMessage(null);
+            document.getElementById('checkUsername').disabled = true;
+            client.invokeGet(app.hostBasePath() + '/checkUsername/' + self.userName())
+                    .done(function (data) {
+                        console.log("done...");
+                        //self.parseModelInfo(data);
+
+                        if (data.available === true) {
+                            self.userNameAvailability(true);
+                            self.userNameMessage("Username is available.");
+                        } else {
+                            self.userNameAvailability(false);
+                            self.userNameMessage("Oops!! The username is already taken.");
+                        }
+                    })
+                    .fail(function (xhr, status, error) {
+                        console.log("fail...");
+                        self.errorMessage("Check failed. Could not verify. Please contact admin if problem persists.");
+                        self.initializing(false);
+                    });
+
         };
 
         self.handleSuccess = function (data) {
@@ -92,6 +111,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'appController', 'restClient', 'ojs/
             app.isAdmin(null);
         };
 
+        self.usernameChange = function (data) {
+            console.log("In value change");
+            document.getElementById('checkUsername').disabled = false;
+            self.userNameAvailability(null);
+            self.userNameMessage(null);
+        };
+
         self.reset = function () {
             self.userName(null);
             self.password(null);
@@ -100,6 +126,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'appController', 'restClient', 'ojs/
             self.firstName(null);
             self.lastName(null);
             self.emailId(null);
+            self.userNameAvailability(null);
+            self.userNameMessage(null);
         };
 
         self.goToLogin = function () {

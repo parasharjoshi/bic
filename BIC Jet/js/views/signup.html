@@ -21,8 +21,19 @@ and open the template in the editor.
             <br/>
             <b style="margin-left: 50px; margin-bottom: 0px;">2. Choose Login credentials</b>
             <hr style="width: 500px;"/>
-            <oj-input-text id="username" required value="{{userName}}" clear-icon="conditional" placeholder="User name" label-hint="User Name for BIC : "></oj-input-text> 
-            <oj-button id='checkUsername' on-oj-action='[[checkUserName]]' style="background: none;border: none;margin-left: 200px;margin-bottom: 10px;" disabled="{{enableCheck}}" >Check Username availability</oj-button>
+            <oj-input-text id="username" required value="{{userName}}" clear-icon="conditional" placeholder="User name" label-hint="User Name for BIC : " data-bind="event:{change:usernameChange}">></oj-input-text> 
+            <oj-button id='checkUsername' on-oj-action='[[checkUserName]]' style="background: none;border: none;margin-left: 200px;" disabled="{{enableCheck}}" >Check Username availability</oj-button>
+            <div data-bind="visible:!$data.userNameAvailability() && $data.userNameMessage()" style="margin-left: 200px;margin-bottom: 10px;">
+                <span class='oj-fwk-icon oj-fwk-icon-status-error'></span>
+                <span data-bind="text: $data.userNameMessage()"></span>
+            </div>
+            <div data-bind="visible:$data.userNameAvailability() && $data.userNameMessage()" style="margin-left: 200px;margin-bottom: 10px;">
+                <span class='oj-fwk-icon oj-fwk-icon-status-confirmation'></span>
+                <span data-bind="text: $data.userNameMessage()"></span>
+            </div>
+            <div data-bind="visible:!$data.userNameMessage()" style="margin-left: 200px;margin-bottom: 10px;">
+                <span >&nbsp;</span>
+            </div>
             <oj-input-password id="password" value="{{password}}" placeholder="Password" label-hint="Password for BIC : " required></oj-input-password>
             <oj-input-password id="repassword" value="{{repassword}}" placeholder="Confirm password" label-hint="Re-confirm Password : " required></oj-input-password>
             <br/>
