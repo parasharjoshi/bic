@@ -47,7 +47,7 @@
   <body class="oj-web-applayout-body">
     <!-- Template for rendering navigation items shared between nav bar and nav list -->
     <script type="text/html" id="navTemplate">
-      <li><a href="#">
+    <li><a href="#" data-bind="visible: $data['adminOnly'] ? $root.isAdmin() : true">
         <span :class="[[$data['iconClass']]]"></span>
         <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
       </a></li>
@@ -99,9 +99,16 @@
                   <span slot="endIcon" :class="[[{'oj-icon demo-appheader-avatar': smScreen(), 'oj-component-icon oj-button-menu-dropdown-icon': !smScreen()}]]"></span>
                   <oj-menu id="menu1" slot="menu" style="display:none">
 <!--                      <oj-option id="pref" value="pref" data-bind="click: $data.prefs">Preferences</oj-option>-->
-                    <oj-option id="help" value="help" data-bind="click: $data.help">Help</oj-option>
-                    <oj-option id="about" value="about" data-bind="click: $data.about">About</oj-option>
-                    <oj-option id="out" value="out" data-bind="click: $data.signout">Sign Out</oj-option>
+<!--                    <oj-option id="help" value="help" data-bind="click: $data.help">
+                        <span class="oj-fwk-icon oj-fwk-icon-arrow-n" slot="startIcon"></span>
+                        Help</oj-option>-->
+                    <oj-option id="about" value="about" data-bind="click: $data.about">
+                        <span class="oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24" slot="startIcon"></span>
+                        About</oj-option>
+                    <oj-option id="out" value="out" data-bind="click: $data.signout">
+                        <span class="oj-navigationlist-item-icon demo-icon-font-24 demo-signout-icon-24" slot="startIcon"></span>
+                        Sign Out
+                    </oj-option>
                   </oj-menu>
                 </oj-menu-button>
               </oj-toolbar>

@@ -10,11 +10,19 @@ import com.oracle.bits.bic.domain.ActivityEntity;
 import com.oracle.bits.bic.domain.InceptionModelEntity;
 import com.oracle.bits.bic.domain.PersonEntity;
 import com.oracle.bits.bic.domain.RequestEntity;
+import com.oracle.bits.bic.domain.TrainingImageEntity;
+import com.oracle.bits.bic.domain.TrainingLabelEntity;
+import com.oracle.bits.bic.domain.TrainingRequestEntity;
 import com.oracle.bits.bic.to.ActivityTO;
 import com.oracle.bits.bic.to.InceptionModelTO;
+import com.oracle.bits.bic.to.LabelsToTrainTO;
 import com.oracle.bits.bic.to.PersonTO;
 import com.oracle.bits.bic.to.RequestTO;
+import com.oracle.bits.bic.to.TrainRequestTO;
+import com.oracle.bits.bic.to.TrainingImageTO;
 import com.oracle.bits.bic.to.UserTO;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  *
@@ -39,6 +47,7 @@ public class Converter {
         to.setLabelFileName(entity.getLabelFileName());
         to.setLicenseInfo(entity.getLicenseInfo());
         //to.setModel(entity.getModel());
+        to.setInfo(entity.getInfo());
         to.setAutoDownloaded(entity.getAutoDownloaded());
         to.setModelFileName(entity.getModelFileName());
         to.setModificationDate(entity.getModificationDate());
@@ -51,6 +60,7 @@ public class Converter {
         to.setLabel(entity.getLabel());
         to.setLabelFileName(entity.getLabelFileName());
         to.setLicenseInfo(entity.getLicenseInfo());
+        to.setInfo(entity.getInfo());
         to.setModel(entity.getModel());
         to.setAutoDownloaded(entity.getAutoDownloaded());
         to.setModelFileName(entity.getModelFileName());
@@ -105,6 +115,62 @@ public class Converter {
             InceptionModelTO inceptTo = new InceptionModelTO();
             convertModelEntityToModelTO(entity.getModel(), inceptTo);
             to.setModel(inceptTo);
+        }
+    }
+
+    public static void convertTrainingLabelQueryResultToLabelsToTrainTO(List<Object[]> queryResult, List<LabelsToTrainTO> listOfTO) {
+        if (listOfTO == null  || queryResult == null || queryResult.isEmpty()) {
+            return;
+        }
+        listOfTO.clear();
+        for (Object[] row : queryResult) {
+            LabelsToTrainTO to = new LabelsToTrainTO();
+            to.setImageCount(((BigDecimal) row[2]).longValue());
+            to.setLabelId(((BigDecimal) row[0]).longValue());
+            to.setLabelName((String) row[1]);
+            listOfTO.add(to);
+        }
+    }
+    
+    
+    public static void convertNewTrainingReqEntityListToNewTrainingReqTOList(List<TrainingRequestEntity> queryResult, List<TrainRequestTO> listOfTO) {
+        if (listOfTO == null  || queryResult == null || queryResult.isEmpty()) {
+            return;
+        }
+        listOfTO.clear();
+        for (TrainingRequestEntity row : queryResult) {
+            TrainRequestTO to = new TrainRequestTO();
+            to.setComment(row.getComment());
+            to.setContent(row.getContent());
+            to.setCreated(row.getCreationDate());
+            to.setFileName(row.getFileName());
+            to.setId(row.getId());
+            to.setMimeType(row.getMimeType());
+            to.setModified(row.getModificationDate());
+            to.setObjName(row.getObjName());
+            to.setSize(row.getSizeBytes());
+            to.setUserName(row.getRequestor().getUserName());
+            listOfTO.add(to);
+        }
+    }
+    
+    public static void convertNewTrainingReqEntityListToNewTrainingReqTOListNoContent(List<TrainingRequestEntity> queryResult, List<TrainRequestTO> listOfTO) {
+        if (listOfTO == null  || queryResult == null || queryResult.isEmpty()) {
+            return;
+        }
+        listOfTO.clear();
+        for (TrainingRequestEntity row : queryResult) {
+            TrainRequestTO to = new TrainRequestTO();
+            to.setComment(row.getComment());
+            to.setCreated(row.getCreationDate());
+            to.setFileName(row.getFileName());
+            to.setId(row.getId());
+            to.setMimeType(row.getMimeType());
+            to.setModified(row.getModificationDate());
+            to.setObjName(row.getObjName());
+            to.setSize(row.getSizeBytes());
+            to.setUserName(row.getRequestor().getUserName());
+            listOfTO.add(to);
         }
     }
 

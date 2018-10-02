@@ -70,3 +70,27 @@
     box-sizing: border-box;
     border-top: 1px solid transparent;
 }
+
+/*For upload images*/
+.imgContainer{
+    position:relative;
+    display:inline;
+    z-index:0;
+}
+
+.overlayImg{
+    position:absolute;
+    z-index:1;
+    bottom:0;
+    right:0;
+    margin-bottom: 3px;
+    margin-right: 3px;
+    background-color: white;
+    max-width:30px;
+    max-height:30px;
+}
+
+.imgClass{
+    max-width:100px;
+    max-height:100px;
+}

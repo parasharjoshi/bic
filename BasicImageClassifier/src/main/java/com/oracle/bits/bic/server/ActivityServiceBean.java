@@ -8,6 +8,7 @@ package com.oracle.bits.bic.server;
 import com.oracle.bits.bic.converter.Converter;
 import com.oracle.bits.bic.domain.ActivityEntity;
 import com.oracle.bits.bic.domain.InceptionModelEntity;
+import com.oracle.bits.bic.domain.PersonEntity;
 import com.oracle.bits.bic.domain.RequestEntity;
 import com.oracle.bits.bic.em.util.EntityUtil;
 import com.oracle.bits.bic.to.ActivityTO;
@@ -64,6 +65,16 @@ public class ActivityServiceBean {
         activityEntity.setModificationDate(new Date());
         activityEntity.setModel(inceptEntity);
         activityEntity.setRequestor(inceptEntity.getAdministrator());
+        persistActivityEvent(activityEntity);
+    }
+    
+    public void saveActivity(InceptionModelEntity inceptEntity, PersonEntity person) {
+        //Convert TO to entity
+        ActivityEntity activityEntity = new ActivityEntity();
+        activityEntity.setCreationDate(new Date());
+        activityEntity.setModificationDate(new Date());
+        activityEntity.setModel(inceptEntity);
+        activityEntity.setRequestor(person);
         persistActivityEvent(activityEntity);
     }
 

@@ -1,0 +1,170 @@
+<!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+-->
+
+<table>
+    <tr>
+        <td width="50%" style="vertical-align: top;">
+            <div  data-bind="visible: isUserAdmin()">
+                <h1>User requests for training</h1>
+                <div style="max-width: 600px;">
+                    This page lists all the user request from users for training new objects.
+                <br/>
+                <br/>
+                <h3>User requests:</h3>
+                    <oj-table id="table" aria-label="Requests Table" on-selection-changed="[[tableSelectionChanged]]"
+                              selection-mode='{"row": "single"}' 
+                              data='[[requestDataProvider]]'
+                              columns-default='{"sortable": "disabled"}' 
+                              columns='[[requestsColumnsArray]]'
+                              style='width: 600px; height:700px;'>
+                    </oj-table>
+                </div>
+
+            </div>
+
+            <div data-bind="visible: !isUserAdmin()">
+                <h1>Request new training</h1>
+                <div style="width: 600px;max-width: 600px;">
+                    Use this page to request training of new objects for recognition.
+
+                    <h2>Submit Request</h2>
+                    <div style="width: 100%">
+                        <table>
+                            <tr>
+                                <td style="width: 30px;height: 24px;">
+                                    <span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.objectName()"></span>
+                                </td>
+                                <td>
+                                    <h5><span style="margin-top: 20px;">1. What is the object you are requesting to train?</span></h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                            <oj-input-text id="label" value="{{objectName}}" style="margin-left: 20px; width: 300px;"  disabled =[[uploaded()]] placeholder="Name of the object" required></oj-input-text>
+                            </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div style="margin-top: 10px;width: 100%;">
+                        <table>
+                            <tr>
+                                <td style="width: 30px;height: 24px;">
+                                    <span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.file()"></span>
+                                </td>
+                                <td>
+                                    <h5><span style="margin-top: 20px;">2. Choose image files to upload.</span></h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+
+                                    <table style="margin-left: 20px; margin-right: 20px">
+                                        <tr>
+                                            <td>
+                                        <oj-file-picker accept="[[acceptArr]]"
+                                                        selection-mode="single"
+                                                        on-oj-select='[[selectListener]]'
+                                                        style="max-width:300px;" >
+                                        </oj-file-picker>
+                                </td>
+                                <td>
+                                    <span slot='startIcon' class="demo-garbage-icon-24 demo-icon-font-24" data-bind="visible: ($data.file() && !($data.inprogress()=='DONE' || $data.inprogress()=='YES')), click: $data.clearFiles, attr: {title:'Click to clear selected files'}" style="margin-left: 20px;cursor: pointer; float: left;"></span>
+                                </td>
+                            </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        </table>
+                    </div>
+
+                    <div style="width: 100%">
+                        <table>
+                            <tr>
+                                <td style="width: 30px;height: 24px;">
+                                    <span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.objDescription()"></span>
+                                </td>
+                                <td>
+                                    <h5><span style="margin-top: 20px;">3. Give some details about the object</span></h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                            <oj-text-area id="text-area" value="{{objDescription}}" disabled =[[uploaded()]] style="margin-left: 20px; width: 300px;" required></oj-text-area>
+                            </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div>
+                        <table>
+                            <tr>
+                                <td style="width: 30px;height: 24px;" >
+                                    <span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.uploaded()"></span>
+                                </td>
+                                <td>
+                                    <h5><span style="margin-top: 30px;">3. Submit Request</span></h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div style="padding-top:8px;margin-left: 20px;">
+                                        <oj-button id='upload-button' slot='trigger' on-oj-action='[[uploadRequest]]' disabled="[[inprogress()=='DONE' || inprogress()=='YES' || !objDescription() || !objectName() || !file()]]">
+                                            <span slot='startIcon' class='oj-fwk-icon oj-fwk-icon-arrowbox-n'></span>
+                                            Submit Request.
+                                        </oj-button>
+                                    </div>
+                                    <div id='upload-progress' data-bind="visible: $data.inprogress()=='YES'">
+                                        <span>Please wait while the request is submitted...!! </span>
+                                        <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
+                                    </div>
+                                    <br/>
+                                    <div id='upload-complete' data-bind="visible: $data.inprogress()=='DONE' ">
+                                        <span style='margin-left: 10px; width: 100%;' data-bind="text: 'Success : The request is submitted.'"></span>
+
+                                    </div>
+                                    <div id='fail-banner' data-bind="visible:  $data.inprogress()=='FAIL' ">
+                                        <br/><span class='oj-fwk-icon oj-fwk-icon-status-error'></span>&nbsp;<span style='margin-left: 10px; width: 100%;' data-bind="text: 'Failure : The request could not be submitted. Please try again later.'"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </td>
+
+        <td width="50%" style="margin-left: 30px;vertical-align: top;">
+            <div  data-bind="visible: isUserAdmin()">
+                <table style="width: 700px; margin-left: 50px;" data-bind="visible: $data.fileName() && $data.fileSrc()">
+                    <tr>
+                        <td><h2>Request Image : <span data-bind="text: $data.fileName()"/></h2></td>
+                    </tr>
+                    <tr>
+                        <td ><img data-bind = "attr: {'src': $data.fileSrc(), 'title': $data.fileName()}" style="max-width: 400px;max-height: 400px;border: 2px solid black;"/></td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <div data-bind="visible: !isUserAdmin()">
+                <table style="width: 700px; margin-left: 50px;" data-bind="visible: $data.fileName() && $data.fileSrc()">
+                    <tr>
+                        <td><h2>Image selected: <span data-bind="text: $data.fileName()"/></h2></td>
+                    </tr>
+                    <tr>
+                        <td ><img data-bind = "attr: {'src': $data.fileSrc(), 'title': $data.fileName()}" style="max-width: 700px;max-height: 500px;border: 2px solid black;"/></td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+
+    </tr>
+</table>
+

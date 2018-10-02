@@ -20,6 +20,7 @@ public class InceptionModelTO {
     private String label;
     private String labelFileName;
     private String licenseInfo;
+    private String info;
     private Boolean autoDownloaded;
     private Date createdDate;
     private Date modificationDate;
@@ -122,6 +123,14 @@ public class InceptionModelTO {
 
     public void setAttributes(Map attributes) {
         this.attributes = attributes;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 
 }

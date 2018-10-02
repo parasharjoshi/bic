@@ -12,83 +12,394 @@
 </div>
 
 <div data-bind="visible: $data.isAdmin() && $data.isModuleEnabled() && !$data.initializing()">
-    <div style="width:100%;max-width:700px;display:inline-block;">
-        <oj-tab-bar id="tabs" edge="top" selection="{{selectedTab}}" >
-            <ul>
-                <li id="current-model"><a href="#"> Model Details</a></li>
-                <li id="auto-init-model"><a href="#"> Inception Model</a></li>
-                <!--<li id="upload-model"><a href="#"> Upload Model</a></li>-->
 
-            </ul>
-        </oj-tab-bar>
-        <oj-switcher value="[[selectedTab]]">
-            <div slot="current-model">
-                <div class="demo-tab-content oj-flex-items-pad" >
-                    <h3>Current Model</h3>
-                    <div class="oj-flex">
-                        <div data-bind="visible:!$data.model()"> There is no model set yet. Please use <strong>'Auto Init'</strong> to set-up a new model.</div>
-                        <div class="oj-flex" data-bind="visible:$data.model()">
-                            <oj-table id='table'
-                                      data='[[modelInfoTableDataProvider]]'
-                                      dnd='{"reorder": {"columns": "disabled"}}'
-                                      scroll-policy='loadMoreOnScroll'
-                                      scroll-policy-options='{"fetchSize": 10}'
-                                      columns='[{"headerText": "Attribute", 
-                                      "field": "modelAttr",
-                                      "headerClassName": "tableHeader",
-                                      "className": "oj-sm-only-hide",
-                                      "sortable":"disabled",
-                                      "resizable": "disabled"},
-                                      {"headerText": "Value", 
-                                      "field": "modelValue",
-                                      "headerClassName": "tableHeader",
-                                      "sortable":"disabled",
-                                      "resizable": "disabled"}]'
-                                      style='width: 100%;'>
-                            </oj-table>
+    <table>
+        <tr>
+            <td style="width: 650px;" valign="top">
+                <div style="width:100%;max-width:700px;display:inline-block;">
+                    <oj-tab-bar id="tabs" edge="top" selection="{{selectedTab}}" on-selection-changed="[[tabSelectionChange]]">
+                        <ul>
+                            <li id="current-model"><a href="#"> Current Model</a></li>
+                            <li id="upload-train-image"><a href="#"> Upload Training Images</a></li>
+                            <li id="auto-init-model"><a href="#"> Model Configuration</a></li>
+                            <li id="model-history"><a href="#"> Model History</a></li>
+                        </ul>
+                    </oj-tab-bar>
+                    <oj-switcher value="[[selectedTab]]">
+                        <div slot="current-model">
+                            <div class="demo-tab-content oj-flex-items-pad" >
+                                <h3>Current Model</h3>
+                                <div class="oj-flex">
+                                    <div data-bind="visible:!$data.model()"> There is no model set yet. Please configure a model.</div>
+                                    <div class="oj-flex" data-bind="visible:$data.model()">
+                                        <oj-table id='table'
+                                                  data='[[modelInfoTableDataProvider]]'
+                                                  dnd='{"reorder": {"columns": "disabled"}}'
+                                                  scroll-policy='loadMoreOnScroll'
+                                                  scroll-policy-options='{"fetchSize": 10}'
+                                                  columns='[{"headerText": "Attribute", 
+                                                  "field": "modelAttr",
+                                                  "headerClassName": "tableHeader",
+                                                  "className": "oj-sm-only-hide",
+                                                  "sortable":"disabled",
+                                                  "resizable": "disabled"},
+                                                  {"headerText": "Value", 
+                                                  "field": "modelValue",
+                                                  "headerClassName": "tableHeader",
+                                                  "sortable":"disabled",
+                                                  "resizable": "disabled"}]'
+                                                  style='width: 100%;'>
+                                        </oj-table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div slot="auto-init-model">
-                <div class="demo-tab-content oj-flex-items-pad" aria-controls="pieChart">
-                    <h3>Auto download and Initialize the model.</h3>
-                    <div class="oj-flex">
-                        <p>This operation will result in following steps</p>
-                        <ol>
-                            <li>The system will download a pre-configured 'Inception' model zip.</li>
-                            <li>The zip will be extracted.</li>
-                            <li>The extracted files will be validated and formatted to be pushed to the database.</li>
-                            <li>The model is enabled for recognition tasks.</li>
-                        </ol>
-                        <div id='choice'>
-                            <p><br/><br/><strong>Use the following button to auto initialize the model.</strong></p>
-                            <oj-button id='auto-init-button' on-oj-action='[[autoInitModel]]' style="background: none;border: none;margin-left: 100px;">Auto Init Model</oj-button>
+                        <div slot="auto-init-model">
+                            <div id = "train-config-container" data-bind="visible: !$data.showTrainOptions()">
+                                <div class='oj-flex-bar'>
+                                    <div class='oj-flex-bar-start' style="margin-top: 20px;">      
+                                        <oj-label id="type-label"  
+                                                  class="oj-label-inline">Please choose a Model Config Type</oj-label>
+                                    </div>
+                                    <div class='oj-flex-bar-middle' style="margin-top: 20px;">
+                                        <oj-radioset labelled-by="type-label" class="oj-choice-direction-row" value="{{configType}}" on-value-changed="[[configTypeChanged]]">
+                                            <oj-option id="auto" value="auto">Auto Init</oj-option>
+                                            <oj-option id="Manual" value="manual">Manual/Advanced </oj-option>
+                                        </oj-radioset>
+                                    </div>
+                                </div>
 
-                            <br/><br/>
-                            <div id='auto-init-progress' data-bind="visible: $data.inprogress()=='YES'">
-                                <span>Please wait while we set the model up...!! </span>
+                                <div class="demo-tab-content oj-flex-items-pad" data-bind='visible: $data.configType()==="auto"'>
+                                    <h3>Auto download and Initialize the model.</h3>
+                                    <div class="oj-flex">
+                                        <p>Following steps are performed by the system</p>
+                                        <ol>
+                                            <li>The system will download a pre-configured 'Inception' model zip.</li>
+                                            <li>The zip will be extracted.</li>
+                                            <li>The extracted files will be validated and formatted to be pushed to the database.</li>
+                                            <li>The model is enabled for recognition tasks.</li>
+                                        </ol>
+                                        <div id='choice-auto'>
+                                            <p><br/><br/><strong>Use the following button to auto initialize the model.</strong></p>
+                                            <oj-button id='auto-init-button' on-oj-action='[[autoInitModel]]' style="background: none;border: none;margin-left: 100px;">Auto Init Model</oj-button>
+
+                                            <br/><br/>
+                                            <div id='auto-init-progress' data-bind="visible: $data.inprogress()=='YES'">
+                                                <span>Please wait while we set the model up...!! </span>
+                                                <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
+                                            </div>
+                                            <div id='auto-init-complete' data-bind="visible: $data.inprogress()=='DONE' ">
+                                                <span class='oj-fwk-icon oj-fwk-icon-status-confirmation'></span>
+                                                <span style='margin-left: 10px; width: 100%;'>Model initialized and ready to use..!</span>
+                                            </div>
+                                            <div id='auto-init-failed' data-bind="visible: $data.inprogress()=='FAIL'">
+                                                <span class='oj-fwk-icon oj-fwk-icon-status-error'></span><span data-bind='text:$data.errorMessage()' style='margin-left: 10px; width: 100%;'></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="demo-tab-content oj-flex-items-pad" data-bind='visible: $data.configType()==="manual"'>
+                                    <h3>Manually configure and kick-start training of model </h3>
+                                    <div class="oj-flex">
+                                        <p><strong>Guide:</strong></p>
+                                        <ol>
+                                            <li>The system will ask for some configuration information for the model to be trained.</li>
+                                            <li>Provide configuration information </li>
+                                            <li>The labels that are yet to be trained are displayed</li>
+                                            <li>Kick start the training</li>
+                                            <li>UI is disabled until the training is complete.</li>
+                                        </ol>
+                                        <div id='choice-manual'>
+
+                                            <div data-bind="visible: $data.labelsToTrain().length>0">
+                                                <h3>Labels for training:</h3>
+                                                <div style="max-height: 300px;overflow-y: auto;" data-bind="foreach: $data.labelsToTrain()">
+                                                    <span data-bind="text: $data.labelName+'('+$data.imageCount+')'" style="margin-left: 20px;"></span>
+                                                </div>
+                                                <h3 style="margin-top: 30px;">Model Config Parameters:</h3>
+                                                <div style=";margin-top: 10px;">
+                                                    <oj-label for="train-steps-id">Training Steps: </oj-label> 
+                                                    <oj-input-number id="train-steps-id"
+                                                                     min="100"
+                                                                     max="5000"
+                                                                     step="50"
+                                                                     value="{{trainSteps}}" disabled="[[inprogress()=='YES' || inprogress()=='DONE']]">
+                                                    </oj-input-number>
+                                                </div>
+
+                                                <div style=";margin-top: 10px;">
+                                                    <oj-label for="tf-hub-mod">Tensorflow Hub Module:</oj-label>
+                                                    <oj-combobox-one id="tf-hub-mod" value="{{tensorflowHubModule}}"
+                                                                     style="max-width:20em" disabled="[[inprogress()=='YES' || inprogress()=='DONE']]">
+                                                        <oj-option value="https://tfhub.dev/google/imagenet/inception_v1/feature_vector/1">Inception V1</oj-option>
+                                                        <oj-option value="https://tfhub.dev/google/imagenet/mobilenet_v1_100_224/quantops/feature_vector/1">MobileNet V1</oj-option>
+                                                    </oj-combobox-one>
+                                                </div>
+                                                <br/><br/>
+
+                                                <oj-button id='manual-train-button' on-oj-action='[[manualTrainModel]]' style="background: none;border: none;margin-left: 100px;" 
+                                                           disabled="[[!tensorflowHubModule() ||  !trainSteps() || inprogress()=='YES' || inprogress()=='DONE']]">Start Training</oj-button>
+
+                                                <div>
+                                                    <br/>
+                                                    <span data-bind="visible: $data.inprogress()"><a href="file:///D:/BIC/retrainedModel/trainLogs.txt" target="_blank">Click here</a> to see the log file</span>
+                                                </div>
+
+                                                <div id='train-progress' data-bind="visible: $data.inprogress()=='YES'">
+                                                    <span>Please wait while the model is being trained...!! </span>
+                                                    <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
+                                                </div>
+                                                <br/>
+                                                <div id='train-failed' data-bind="visible: $data.inprogress()=='FAIL' ">
+                                                    <br/><span class='oj-fwk-icon oj-fwk-icon-status-error'></span>&nbsp;<span style='margin-left: 10px; width: 100%;' data-bind="text: 'Failed : Model training failed. Please contact admin if problem persists.'"></span>
+                                                </div>
+                                                <div id='train-complete' data-bind="visible:  $data.inprogress()=='DONE' ">
+                                                    <br/><span class='oj-fwk-icon oj-fwk-icon-status-confirmation'></span>&nbsp;<span style='margin-left: 10px; width: 100%;' data-bind="text: 'Success : Model training completed.'"></span>
+                                                </div>
+                                            </div>
+
+
+                                            <div data-bind="visible: !$data.labelsToTrain() || $data.labelsToTrain().length<1" style="margin-top: 30px;">
+                                                <span style="color: red;"><strong>Error: </strong></span>
+                                                <span> There are no new images uploaded for training.</span>
+                                                <span data-bind="click: $data.goToUploadImages" style="cursor: pointer;color: blue"><strong>Upload images now..!</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id='model-train-inprogress' data-bind="visible: $data.showTrainOptions() ">
+                                <span class='oj-fwk-icon oj-fwk-icon-status-info'></span>
+                                <span style='margin-left: 10px; margin-top: 30px; width: 100%;'>A model training is in progress. Please try again later.</span>
+                            </div>
+
+                        </div>
+                        <div slot="upload-train-image">
+                            <div id = "train-config-container" data-bind="visible: !$data.showTrainOptions()">
+                                <div class="demo-tab-content oj-flex-items-pad">
+                                    <div class="oj-flex">
+                                        <div style="width: 620px;">
+                                            <br/>
+                                            <p>This page allows you to upload images that can be used to train the underlying model to recognize new objects or add more images to existing labels.</p>
+                                            <p><strong>Usage:</strong></p>
+                                            <ol>
+                                                <li>Provide a name of object (label)</li>
+                                                <li>Choose images for the given Label</li>
+                                                <li>Upload images to the server</li>
+                                                <li>Upload more images for same label or other images for new labels</li>
+                                                <li>Go to 'Model Configuration' to configure and train/retrain the model.</li>
+                                            </ol>
+                                        </div>
+                                        <hr>
+                                        <h2>Upload images for training</h2>
+                                        <div style="width: 100%">
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 30px;height: 24px;">
+                                                        <span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.imgLabel()"></span>
+                                                    </td>
+                                                    <td>
+                                                        <h5><span style="margin-top: 20px;">1. What do you wish to train?</span></h5>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                <oj-input-text id="label" value="{{imgLabel}}" style="margin-left: 20px; width: 300px;"  disabled =[[uploaded()]] placeholder="Label" required></oj-input-text>
+                                                </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <div style="margin-top: 10px;width: 100%;">
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 30px;height: 24px;">
+                                                        <span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.fileList().length>0"></span>
+                                                    </td>
+                                                    <td>
+                                                        <h5><span style="margin-top: 20px;">2. Choose image files to upload.</span></h5>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+
+                                                        <table style="margin-left: 20px; margin-right: 20px">
+                                                            <tr>
+                                                                <td>
+                                                            <oj-file-picker accept="[[acceptArr]]"
+                                                                            selection-mode="multiple"
+                                                                            on-oj-select='[[selectListener]]'
+                                                                            style="max-width:300px;" >
+                                                            </oj-file-picker>
+                                                    </td>
+                                                    <td>
+                                                        <span slot='startIcon' class="demo-garbage-icon-24 demo-icon-font-24" data-bind="visible: $data.fileList().length>0 && !$data.uploaded(), click: $data.clearFiles, attr: {title:'Click to clear selected files'}" style="margin-left: 20px;cursor: pointer; float: left;"></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            </td>
+                                            </tr>
+                                            </table>
+                                        </div>
+
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 30px;height: 24px;">
+                                                        <span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.uploaded()"></span>
+                                                    </td>
+                                                    <td>
+                                                        <h5><span style="margin-top: 30px;">3. Upload the images</span></h5>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <div style="padding-top:8px;margin-left: 20px;">
+                                                            <oj-button id='upload-button' slot='trigger' on-oj-action='[[uploadImages]]' disabled="[[!(fileList().length>0 && imgLabel() && !uploaded())]]">
+                                                                <span slot='startIcon' class='oj-fwk-icon oj-fwk-icon-arrowbox-n'></span>
+                                                                Upload images.
+                                                            </oj-button>
+
+                                                        </div>
+                                                        <div id='upload-progress' data-bind="visible: $data.inprogress()=='YES'">
+                                                            <span>Please wait while the images are uploaded...!! </span>
+                                                            <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
+                                                        </div>
+                                                        <br/>
+                                                        <div id='upload-complete' data-bind="visible: $data.inprogress()=='YES' || $data.inprogress()=='DONE' ">
+                                                            <br/><span class='oj-fwk-icon oj-fwk-icon-status-confirmation'></span>&nbsp;<span style='margin-left: 10px; width: 100%;' data-bind="text: 'Success : '+$data.uploadSuccessCnt()"></span>
+                                                            <br/><span class='oj-fwk-icon oj-fwk-icon-status-error'></span>&nbsp;<span style='margin-left: 10px; width: 100%;' data-bind="text: 'Failed : '+$data.uploadFailCnt()"></span>
+                                                        </div>
+                                                        <div id='re-upload' data-bind="visible:  $data.inprogress()=='DONE' ">
+                                                            <br/>
+                                                            <oj-button id='more-images-button'
+                                                                       chroming='half' on-oj-action='[[clearFiles]]'>
+                                                                <span slot='startIcon' class="oj-fwk-icon oj-fwk-icon-clock"></span>
+                                                                Upload More images.
+                                                            </oj-button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id='model-train-inprogress-2' data-bind="visible: $data.showTrainOptions() ">
+                                <span class='oj-fwk-icon oj-fwk-icon-status-info'></span>
+                                <span style='margin-left: 10px; margin-top: 30px; width: 100%;'>A model training is in progress. Please try again later.</span>
+                            </div>
+                        </div>
+
+                        <div slot="model-history">
+                            <h2>Model History</h2>
+                            <div style="width: 620px;">
+                                <br/>
+                                <p>This page displays all the versions of the model. An Admin can revert the model to a previous version</p>
+                                <p><strong>Reverting to a previous version of Model:</strong></p>
+                                <ol>
+                                    <li>Choose the model version(Id) by clicking on the row in the table below</li>
+                                    <li>'Restore selected Model' is enabled if selected model is not same as current model and can be restored to.</li>
+                                    <li>Click on the restore button and confirm.</li>
+                                </ol>
+                            </div>
+
+                            <br/>
+                            <div id='upload-progress' data-bind="visible: $data.inprogress()=='YES'">
+                                <span>Please wait while the information id fetched... </span>
                                 <oj-progress id="progressCircle" type="circle" value="[[progressValue]]"></oj-progress>
                             </div>
-                            <div id='auto-init-complete' data-bind="visible: $data.inprogress()=='DONE' ">
-                                <span class='oj-fwk-icon oj-fwk-icon-status-confirmation'></span>
-                                <span style='margin-left: 10px; width: 100%;'>Model initialized and ready to use..!</span>
-                            </div>
-                            <div id='auto-init-failed' data-bind="visible: $data.inprogress()=='FAIL'">
-                                <span class='oj-fwk-icon oj-fwk-icon-status-error'></span><span data-bind='text:$data.errorMessage()' style='margin-left: 10px; width: 100%;'></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div slot="upload-model">
-                <div class="demo-tab-content oj-flex-items-pad">
-                    <h3>Series Attributes - Series 1</h3>
-                    <div class="oj-flex">
 
-                    </div>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 50%">
+                                        <h3>Model Version(s):</h3>
+                                    </td>
+                                    <td style="width: 50%">
+                                <oj-button id='restore-model-button' on-oj-action='[[restoreModelConfirm]]' style=" float:right; vertical-align: central" data-bind="visible: modelSelectedForRestore()">Restore selected Model</oj-button>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                <oj-table id="table" aria-label="Departments Table" on-selection-changed="[[tableSelectionChanged]]"
+                                          selection-mode='{"row": "single"}' 
+                                          data='[[modelDataProvider]]'
+                                          columns-default='{"sortable": "disabled"}' 
+                                          columns='[[modelHistoryColumnsArray]]'
+                                          style='width: 100%; height:100%;'>
+                                </oj-table>
+                                </td>
+                                </tr>
+                            </table>
+
+                            <oj-popup class="demo-popup" id="confirm-restore"
+                                      tail="none" position.my.horizontal="center" position.my.vertical="bottom"
+                                      position.at.horizontal="center" position.at.vertical="center"
+                                      position.of="window" position.offset.y="-10"
+                                      modality="modal" auto-dismiss="none">
+                                <div class="demo-popup-body">
+                                    <div class="demo-popup-header"><h5>Restore model</h5></div>
+                                    <div class="demo-popup-content">
+                                        <p>This will restore the model and delete all models in database after this version.</p>
+                                        <p>The operation cannot be undone. Proceed with restore?</p>
+                                    </div>
+                                    <div class="demo-popup-footer">
+                                        <span data-bind="visible: $data.disableRestoreButton()" style="color: grey;">Please wait...</span>
+                                        <oj-button id="btnCancel" style="float: right;padding: 5px;" disabled="[[disableRestoreButton()]]"
+                                                   data-bind="click: function()
+                                  {
+                                    var popup = document.querySelector('#confirm-restore');
+                                    popup.close();
+                                  }">
+                                            Cancel
+                                        </oj-button>
+                                        <oj-button id="btnRestore" style="float: right;padding: 5px;" disabled="[[disableRestoreButton()]]"
+                                                   on-click="[[restoreModel]]">
+                                            Restore
+                                        </oj-button>
+
+                                    </div>
+                                </div>    
+                            </oj-popup>
+
+
+
+                        </div>
+                    </oj-switcher>
                 </div>
-            </div>
-        </oj-switcher>
-    </div>
+            </td>
+            <td style="max-width: 700px;max-height: 500px;"  valign="top">
+                <!--    <span data-bind="visible: !$data.uploaded()" data-bind="visible: !$data.uploaded()"style="width: 700px; margin-left: 50px;"></span>-->
+                <table style="width: 700px; margin-left: 50px;" data-bind="visible: $data.selectedTab() =='upload-train-image' && $data.fileList().length>0">
+                    <tr>
+                        <td><h2> (<span data-bind="text: $data.fileList().length"></span>) Images selected <span data-bind="visible: $data.imgLabel(), html: 'for label \'<b>'+$data.imgLabel()+'\'</b>'"></span> : </h2></td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <div data-bind="foreach: $data.fileList()" style="overflow-y: auto; max-height: 700px">
+                                <div class="imgContainer">
+                                    <img data-bind = "attr: {'src': $data.src, 'title': $data.name}" class="imgClass"/>
+                                    <div class="overlayImg">
+                                        <!--<span class='oj-fwk-icon oj-fwk-icon-status-confirmation' data-bind="visible: $data.uploaded()"></span>-->
+                                        <img src="" data-bind = "visible: $data.uploaded()==='YES', attr: {'src': 'js/images/tick.png', 'title': $data.name}" class="overlayImg"/>
+                                        <img src="" data-bind = "visible: $data.uploaded()==='FAIL', attr: {'src': 'js/images/close-icon.png', 'title': $data.name}" class="overlayImg"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                </table>
+
+
+
+            </td>
+        </tr>
+    </table>
 </div>

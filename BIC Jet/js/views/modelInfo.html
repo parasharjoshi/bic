@@ -36,8 +36,6 @@ and open the template in the editor.
                     <oj-table id='table'
                               data='[[modelInfoTableDataProvider]]'
                               dnd='{"reorder": {"columns": "disabled"}}'
-                              scroll-policy='loadMoreOnScroll'
-                              scroll-policy-options='{"fetchSize": 10}'
                               columns='[{"headerText": "Attribute", 
                               "field": "modelAttr",
                               "headerClassName": "tableHeader",
@@ -67,8 +65,6 @@ and open the template in the editor.
                 <oj-table id='label-table'
                           data='[[labelDataProvider]]'
                           dnd='{"reorder": {"columns": "disabled"}}'
-                          scroll-policy='loadMoreOnScroll'
-                          columns-default.sortable='disabled'
                           columns='[{ 
                           "field": "v1",
                           "className": "oj-sm-only-hide",
@@ -90,7 +86,8 @@ and open the template in the editor.
             <div class="demo-tab-content oj-flex-items-pad" aria-controls="pieChart">
                 <h3 class="sectionHeader">License information for model</h3>
                 <div class="oj-flex">
-                    <div data-bind="text:$data.licenseInfo()" style="white-space: pre-wrap; max-height: 500px; width: 100%; overflow-y: scroll;"></div>
+                    <div data-bind="visible:$data.licenseInfo(),text:$data.licenseInfo()" style="white-space: pre-wrap; max-height: 500px; width: 100%; overflow-y: scroll;"></div>
+                    <div data-bind="visible:!$data.licenseInfo(),text:'There is no license information available for this model.'" style="color: grey;"></div>
                 </div>
             </div>
         </div>

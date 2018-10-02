@@ -67,7 +67,7 @@ public class LoginServiceBean {
             throw new EntityNotFoundException();
         }
     }
-    
+
     public PersonEntity getPersonByUsername(String username) throws EntityNotFoundException {
         if (username != null) {
             EntityManager entityManager = EntityUtil.getNewEntityManager();
@@ -86,7 +86,7 @@ public class LoginServiceBean {
             throw new EntityNotFoundException();
         }
     }
-    
+
     public boolean isUserNameTaken(String userName) {
         try {
             return isUserNameAvailable(userName);
@@ -217,8 +217,9 @@ public class LoginServiceBean {
             if (isUserNameAvailable(user.getUserName())) {
                 AccountEntity accEnt = createAccountPerson(user);
                 Converter.convertAccountEntityToUserTO(accEnt, user);
-            }else{
-               user.setError(new com.oracle.bits.bic.to.Error(ProjectConstants.SIGNUP_USERNAME_TAKEN_ERROR_CODE, ProjectConstants.SIGNUP_USERNAME_TAKEN_ERROR_MSG)); 
+            }
+            else {
+                user.setError(new com.oracle.bits.bic.to.Error(ProjectConstants.SIGNUP_USERNAME_TAKEN_ERROR_CODE, ProjectConstants.SIGNUP_USERNAME_TAKEN_ERROR_MSG));
             }
         }
         catch (EntityNotFoundException ex) {
@@ -233,5 +234,20 @@ public class LoginServiceBean {
             LOG.error("Exception.", ex);
             user.setError(new com.oracle.bits.bic.to.Error(ProjectConstants.UNKNOWN_ERROR_CODE, ProjectConstants.UNKNOWN_ERROR_MSG + "Error: " + ex.getMessage()));
         }
+    }
+
+    public boolean isAdmin(String userName) {
+        try {
+            EntityManager entityManager = EntityUtil.getNewEntityManager();
+
+            PersonEntity person = getPersonByUsername(userName);
+            if (person.getRole().getRoleKey().equalsIgnoreCase(ProjectConstants.ADMIN_ROLE)) {
+                return true;
+            }
+        }
+        catch (EntityNotFoundException ex) {
+            java.util.logging.Logger.getLogger(InceptionModelServiceBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

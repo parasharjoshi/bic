@@ -8,6 +8,10 @@ package com.oracle.bits.bic.common;
 import com.oracle.bits.bic.to.Credential;
 import com.oracle.bits.bic.to.InceptionModelTO;
 import com.oracle.bits.bic.to.RequestTO;
+import com.oracle.bits.bic.to.RestoreModelTO;
+import com.oracle.bits.bic.to.TrainRequestTO;
+import com.oracle.bits.bic.to.TrainingImageTO;
+import com.oracle.bits.bic.to.TrainingModelTO;
 import com.oracle.bits.bic.to.UserTO;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -32,6 +36,13 @@ public class BicServiceRestController {
     @Path("/getdata")
     public Response getMsg() {
         String output = "{\"message\":\"Welcome to BIC (Basic Image Classifier)\"}";
+        return Response.status(200).entity(output).header("Content-Type", "application/json").build();
+    }
+    
+    @GET
+    @Path("/uniqueId")
+    public Response getUniqueId() {
+        String output = "{\"UUID\":\""+bicServiceWrapper.getUniqueToken()+"\"}";
         return Response.status(200).entity(output).header("Content-Type", "application/json").build();
     }
 
@@ -87,6 +98,71 @@ public class BicServiceRestController {
                 //.header("Access-Control-Allow-Origin","*")
                 .build();
     }
+    
+    @POST
+    @Path("/admin/upload/trainingimg")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response uploadTrainingImage(TrainingImageTO req) {
+        System.out.println("Got request to uploadTrainingInage....");
+        return Response.status(200).entity(bicServiceWrapper.uploadTrainingImage(req)).header("Content-Type", "application/json")
+                //.header("Access-Control-Allow-Origin","*")
+                .build();
+    }
+    
+    @GET
+    @Path("/admin/labelToTrain")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllLabelsToTrain() {
+        System.out.println("Got request to uploadTrainingInage....");
+        return Response.status(200).entity(bicServiceWrapper.getLabelsToTrain()).header("Content-Type", "application/json")
+                //.header("Access-Control-Allow-Origin","*")
+                .build();
+    }
+    
+    @GET
+    @Path("/admin/isTraining")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response isTrainingInProgress() {
+        System.out.println("Got request to isTrainingInProgress....");
+        String output = "{\"isTraining\":"+bicServiceWrapper.isTrainingInProgress()+"}";
+        return Response.status(200).entity(output).header("Content-Type", "application/json")
+                //.header("Access-Control-Allow-Origin","*")
+                .build();
+    }
+    
+    @POST
+    @Path("/admin/startTraining")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response trainModel(TrainingModelTO req) {
+        System.out.println("Got request to uploadTrainingInage....");
+        return Response.status(200).entity(bicServiceWrapper.trainModel(req)).header("Content-Type", "application/json")
+                //.header("Access-Control-Allow-Origin","*")
+                .build();
+    }
+    
+    @POST
+    @Path("/admin/restoreModel")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response restoreModel(RestoreModelTO req) {
+        System.out.println("Got request to uploadTrainingInage....");
+        return Response.status(200).entity(bicServiceWrapper.restoreModel(req)).header("Content-Type", "application/json")
+                //.header("Access-Control-Allow-Origin","*")
+                .build();
+    }
+    
+    @POST
+    @Path("/trainrequest")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response newTrainingRequest(TrainRequestTO req) {
+        System.out.println("Got request to newTrainingRequest....");
+        return Response.status(200).entity(bicServiceWrapper.newTrainRequest(req)).header("Content-Type", "application/json")
+                //.header("Access-Control-Allow-Origin","*")
+                .build();
+    }
 
     @POST
     @Path("/recogFeedback")
@@ -128,6 +204,39 @@ public class BicServiceRestController {
     public Response getCurrentModelInfoForAdmin() {
         System.out.println("Got request to getCurrentModelInfoForAdmin....");
         return Response.status(200).entity(bicServiceWrapper.getCurrentModelInfoForAdmin()).header("Content-Type", "application/json")
+                //.header("Access-Control-Allow-Origin","*")
+                .build();
+    }
+    
+    @GET
+    @Path("/admin/allmodel")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllModelForAdmin() {
+        System.out.println("Got request to getCurrentModelInfoForAdmin....");
+        return Response.status(200).entity(bicServiceWrapper.getAllModelForAdmin()).header("Content-Type", "application/json")
+                //.header("Access-Control-Allow-Origin","*")
+                .build();
+    }
+    
+    @GET
+    @Path("/admin/trainreq")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllTrainingRequestForAdmin() {
+        System.out.println("Got request to getCurrentModelInfoForAdmin....");
+        return Response.status(200).entity(bicServiceWrapper.getAllTrainingRequestForAdmin()).header("Content-Type", "application/json")
+                //.header("Access-Control-Allow-Origin","*")
+                .build();
+    }
+    
+    @GET
+    @Path("/admin/light/trainreq")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllTrainingRequestForAdminNoContent() {
+        System.out.println("Got request to getCurrentModelInfoForAdmin....");
+        return Response.status(200).entity(bicServiceWrapper.getAllTrainingRequestForAdminNoContent()).header("Content-Type", "application/json")
                 //.header("Access-Control-Allow-Origin","*")
                 .build();
     }

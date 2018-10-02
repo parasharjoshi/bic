@@ -20,6 +20,9 @@ public class ProjectConstants {
     public static final String UNKNOWN_ERROR_CODE = "UNKNOWN_ERROR";
     public static final String UNKNOWN_ERROR_MSG = "Something went wrong. Please contact system administrator.";
     
+    public static final String VALIDATION_GENERIC_ERROR_CODE = "VALIDATION_ERROR";
+    public static final String VALIDATION_GENERIC_ERROR_MSG = "Invalid value(s) specified. Please contact system administrator.";
+    
     public static final String INVALID_CREDS_ERROR_CODE = "INVALID_CREDENTIALS";
     public static final String INVALID_CREDS_ERROR_MSG = "Invalid credentials. Please try with valid credentials.";
 
@@ -40,5 +43,11 @@ public class ProjectConstants {
     
     public static final String INVALID_OPERATION_ERROR_CODE = "INVALID_OPERATION";
     public static final String INVALID_OPERATION_ERROR_MSG = "Operation not allowed for this user. Please contact Admin if the problem persists.";
+    
+    public static final String ALREADY_TRAINING_ERROR_CODE = "TRAINING_IN_PROGRESS";
+    public static final String ALREADY_TRAINING_ERROR_MSG = "A training job is already under progress. Cannot start another one.";
+    
+    public static final String ENV_ERROR_CODE = "TRAINING_IN_PROGRESS";
+    public static final String ENV_ERROR_MSG = "A training job is already under progress. Cannot start another one.";
 
 }

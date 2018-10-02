@@ -22,14 +22,15 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-el
                 // Router setup
                 self.router = oj.Router.rootInstance;
                 self.router.configure({
-                    'activity': {label: 'Dashboard'},
+                    'activity': {label: 'Activity'},
                     'home': {label: 'Home'},
-                    'login': {label: 'Home', isDefault: true},
+                    'login': {label: 'Login', isDefault: true},
                     'recognize': {label: 'Recognize'},
                     'settings': {label: 'Customers'},
                     'about': {label: 'About'},
+                    'request': {label: 'Request'},
                     'modelInfo': {label: 'Model Info'},
-                    'signup': {label: 'Signup'},
+                    'signup': {label: 'Signup'}
                 });
                 oj.Router.defaults['urlAdapter'] = new oj.Router.urlParamAdapter();
 
@@ -64,12 +65,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-el
                     {name: 'Model', id: 'modelInfo',
                         iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-catalog-icon-24'},
                     {name: 'Settings', id: 'settings',
-                        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-gear-icon-16'},
+                        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-gear-icon-16', adminOnly: true},
+                    {name: 'Request', id: 'request',
+                        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-edit-icon-24'},
                     {name: 'About', id: 'about',
                         iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-info-icon-24'}
                 ];
                 self.navDataSource = new oj.ArrayTableDataSource(navData, {idAttribute: 'id', });
-                
+
                 self.prefs = function () {
                     console.log("Got call to prefs");
                 };
@@ -85,9 +88,9 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-el
                     self.isAdmin(null);
                     self.routeToLogin();
                 };
-                
+
                 self.routeToLogin = function () {
-                    if(!self.userLogin() || self.isAdmin()===undefined || self.isAdmin()===null){
+                    if (!self.userLogin() || self.isAdmin() === undefined || self.isAdmin() === null) {
                         self.router.go('login');
                     }
                 };
@@ -114,14 +117,14 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-el
                 // Header
                 // Application Name used in Branding Area
                 self.appName = ko.observable("Basic Image Classifier");
-                
+
                 /*self.userLogin = ko.observable('parasjos');
                 self.isAdmin = ko.observable(true);
                 self.userFullName = ko.observable('Parashar Joshi');*/
                 // User Info used in Global Navigation area
-                self.userLogin = ko.observable(null);
-                self.isAdmin = ko.observable(null);
-                self.userFullName = ko.observable();
+                 self.userLogin = ko.observable(null);
+                 self.isAdmin = ko.observable(null);
+                 self.userFullName = ko.observable();
 
                 // Footer
                 function footerLink(name, id, linkTarget) {
@@ -136,7 +139,7 @@ define(['ojs/ojcore', 'knockout', 'ojs/ojmodule-element-utils', 'ojs/ojmodule-el
                     new footerLink('Terms Of Use', 'termsOfUse', 'http://www.oracle.com/us/legal/terms/index.html'),
                     new footerLink('Your Privacy Rights', 'yourPrivacyRights', 'http://www.oracle.com/us/legal/privacy/index.html')
                 ]);
-                
+
                 self.routeToLogin();
             }
 

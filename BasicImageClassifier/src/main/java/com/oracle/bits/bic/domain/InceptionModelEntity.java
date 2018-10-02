@@ -32,6 +32,8 @@ public class InceptionModelEntity extends BaseEntity implements Serializable {
     private String label;
     private String labelFileName;
     private String licenseInfo;
+    private String info;
+    private Boolean deleted;
     private Boolean autoDownloaded;
     private PersonEntity Administrator;
 
@@ -72,6 +74,24 @@ public class InceptionModelEntity extends BaseEntity implements Serializable {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    @Column(name = "INFO", nullable = false, length = 35000)
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    @Column(name = "DELETED", nullable = false)
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Column(name = "LABEL_FILE_NAME", nullable = false, length = 255)

@@ -80,7 +80,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'appController', 'restClient', 'ojs/
                         {modelAttr: 'Model id/version', modelValue: self.model().id},
                         {modelAttr: 'Uploaded', modelValue: new Date(self.model().createdDate)},
                         {modelAttr: 'Modified', modelValue: new Date(self.model().modificationDate)},
-                        {modelAttr: 'Upload by', modelValue: self.model().userName}
+                        {modelAttr: 'Upload by', modelValue: self.model().userName},
+                        {modelAttr: 'Description', modelValue: self.model().info}
                     ];
                     self.modelInfoTableDataProvider(new oj.ArrayDataProvider(modelProviderDataArray));
                     //self.modelInfoTableDataProvider(new oj.ArrayDataProvider(modelProviderDataArray, {keyAttributes: 'modelAttr'}));
